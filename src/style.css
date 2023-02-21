@@ -56,17 +56,23 @@
     box-sizing: border-box;
 }
 
-img, picture, svg, video{
-  display: block;
-  max-width: 100%;
+img,
+picture,
+svg,
+video {
+    display: block;
+    max-width: 100%;
 }
 
-input, textarea, button, select{
-  font: inherit;
+input,
+textarea,
+button,
+select {
+    font: inherit;
 }
 
-html{
-  color-scheme: dark light;
+html {
+    color-scheme: dark light;
 }
 
 body {
@@ -74,4 +80,39 @@ body {
     background-color: var(--clr-luna-100);
     color: var(--clr-luna-900);
     min-height: 100vh;
+    width: 100%;
+}
+
+.flow > :where(:not(:first-child)) {
+    margin-block-start: var(--flow-spacer, 1em);
+}
+
+header {
+    height: 4rem;
+    width: 100%;
+    border-bottom: 1px solid red;
+}
+
+main{
+  display: flex;
+  place-content: center;
+
+}
+
+article {
+    width: min(500px, 80vw);
+    border: 1px solid;
+    padding: 1em;
+    text-align: center;
+    line-height: 1.2;
+    background: linear-gradient(
+        135deg,
+        var(--clr-luna-500),
+        var(--clr-luna-300)
+    );
+}
+
+.title {
+    text-transform: uppercase;
+    font-size: clamp(2em, 5vw, 3.5em);
 }
