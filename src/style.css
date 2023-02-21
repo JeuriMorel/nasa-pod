@@ -1,0 +1,77 @@
+:root {
+    --clr-purple-haze-100: #210535;
+    --clr-purple-haze-300: #430d4b;
+    --clr-purple-haze-500: #7b337d;
+    --clr-purple-haze-700: #c874b2;
+    --clr-purple-haze-900: #f5d5e0;
+
+    --clr-nebula-100: #013026;
+    --clr-nebula-300: #014760;
+    --clr-nebula-500: #107e57;
+    --clr-nebula-700: #a1ce3f;
+    --clr-nebula-900: #cbe58e;
+
+    --clr-eclipsed-100: #000000;
+    --clr-eclipsed-300: #051427;
+    --clr-eclipsed-500: #530f1e;
+    --clr-eclipsed-700: #a44322;
+    --clr-eclipsed-900: #f8bc04;
+
+    --clr-galactic-forest-100: #081448;
+    --clr-galactic-forest-300: #282157;
+    --clr-galactic-forest-500: #1a2c80;
+    --clr-galactic-forest-700: #4a478a;
+    --clr-galactic-forest-900: #da8a8b;
+
+    --clr-far-away-100: #062c43;
+    --clr-far-away-300: #054569;
+    --clr-far-away-500: #5591a9;
+    --clr-far-away-700: #9ccddc;
+    --clr-far-away-900: #ced7e0;
+
+    --clr-made-of-stars-100: #011307;
+    --clr-made-of-stars-300: #001736;
+    --clr-made-of-stars-500: #00481a;
+    --clr-made-of-stars-700: #155e89;
+    --clr-made-of-stars-900: #9aeadd;
+
+    --clr-supernova-100: #0b1f3a;
+    --clr-supernova-300: #76101e;
+    --clr-supernova-500: #133769;
+    --clr-supernova-700: #c9374c;
+    --clr-supernova-900: #c2dde4;
+
+    --clr-luna-100: #101b39;
+    --clr-luna-300: #333136;
+    --clr-luna-500: #6f6d72;
+    --clr-luna-700: #b4b1b8;
+    --clr-luna-900: #e9e8ee;
+}
+
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+img, picture, svg, video{
+  display: block;
+  max-width: 100%;
+}
+
+input, textarea, button, select{
+  font: inherit;
+}
+
+html{
+  color-scheme: dark light;
+}
+
+body {
+    font-family: "Strait", sans-serif;
+    background-color: var(--clr-luna-100);
+    color: var(--clr-luna-900);
+    min-height: 100vh;
+}
