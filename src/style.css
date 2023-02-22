@@ -90,13 +90,24 @@ body {
 header {
     height: 4rem;
     width: 100%;
-    border-bottom: 1px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 0.5em;
+    background: linear-gradient(to top, transparent, var(--clr-luna-300));
 }
 
-main{
-  display: flex;
-  place-content: center;
+button {
+    padding: 0.75em 1.25em;
+    background-color: transparent;
+    border: 1px solid;
+    cursor: pointer;
+    text-transform: capitalize;
+}
 
+main {
+    display: flex;
+    place-content: center;
 }
 
 article {

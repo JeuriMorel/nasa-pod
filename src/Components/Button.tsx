@@ -1,9 +1,9 @@
 
 
 
-function Button() {
+function Button({info}: {info: string}) {
     return <>
-        <button>today</button>
+        <button className="header-button">{ info }</button>
     </>
 }
 

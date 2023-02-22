@@ -1,6 +1,10 @@
-function Header() {
+type HeaderProps = {
+    children: React.ReactNode
+}
+
+function Header(props: HeaderProps) {
     return <>
-        <header>this is a header</header>
+        <header>{ props.children}</header>
     </>
 }
 

@@ -5,7 +5,12 @@ import Button from "./Components/Button"
 function App() {
     return (
         <>
-            <Header></Header>
+            <Header>
+                <Button info="previous day" />
+                <Button info="next day" />
+                <Button info="today" />
+                <Button info="random"/>
+            </Header>
             <main>
                 <Card></Card>
             </main>
