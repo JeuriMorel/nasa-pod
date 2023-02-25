@@ -1,19 +1,26 @@
-import Card from "./Components/Card"
-import Header from "./Components/Header"
+import PhotoWrapper from "./Components/PhotoWrapper"
 import Button from "./Components/Button"
+import NavBar from "./Components/NavBar"
+import Formatter from "./Utilities/Formatter"
 
 function App() {
     return (
         <>
-            <Header>
-                <Button info="previous day" />
-                <Button info="next day" />
-                <Button info="today" />
-                <Button info="random"/>
-            </Header>
             <main>
-                <Card></Card>
+                <PhotoWrapper/>
             </main>
+            <NavBar>
+                <Button
+                    className={"m-inline-end-sm m-inline-start-auto"}
+                    info="&#60;"
+                />
+                <Button
+                    className={"m-inline-end-sm"}
+                    info={Formatter(new Date())}
+                />
+                <Button info="&#62;" />
+                <Button className={"m-inline-start-auto"} info="random" />
+            </NavBar>
         </>
     )
 }

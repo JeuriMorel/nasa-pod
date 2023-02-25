@@ -1,9 +1,12 @@
+type ButtonProps = {
+    info: string
+    className?: string
+}
 
 
-
-function Button({info}: {info: string}) {
+function Button({info, className}: ButtonProps) {
     return <>
-        <button className="header-button">{ info }</button>
+        <button className={`nav-button ${className}`}>{ info }</button>
     </>
 }
 
