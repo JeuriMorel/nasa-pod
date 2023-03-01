@@ -1,13 +1,20 @@
-type ButtonProps = {
-    info: string
+interface ButtonProps {
+    button_text: string
     className?: string
+    onClick?: Function
 }
 
-
-function Button({info, className}: ButtonProps) {
-    return <>
-        <button className={`nav-button ${className}`}>{ info }</button>
-    </>
+function Button({ button_text, className, onClick }: ButtonProps) {
+    return (
+        <>
+            <button
+                className={`nav-button ${className}`}
+                onClick={() => onClick?.()}
+            >
+                {button_text}
+            </button>
+        </>
+    )
 }
 
 export default Button

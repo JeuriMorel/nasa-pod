@@ -1,4 +1,4 @@
-type PhotoImgProps ={
+interface PhotoImgProps {
     smallImgSrc: string
     largeImgSrc: string
 }

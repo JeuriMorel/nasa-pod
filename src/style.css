@@ -85,10 +85,10 @@ html {
 }
 
 body {
-    --bg-color: var(--clr-luna-100);
-    --text-color: var(--clr-luna-900);
-    --nav-color: var(--clr-luna-700);
-    --nav-color-hover: var(--clr-luna-900);
+    --bg-color: var(--clr-nebula-100);
+    --text-color: var(--clr-nebula-900);
+    --nav-color: var(--clr-nebula-700);
+    --nav-color-hover: var(--clr-nebula-900);
     font-family: "Strait", sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -204,23 +204,24 @@ article img {
 .text-container {
     display: grid;
     padding: 2em;
+    text-align: center;
     grid-template-areas:
-        " . . explanation"
-        "title . explanation"
-        ". . explanation"
-        "copyright . explanation"
-        ". . explanation"
+        " . title ."
+        ". copyright ."
+        "explanation explanation explanation"
+        "explanation explanation explanation"
+        "explanation explanation explanation"
         ". . ."
         ". . .";
     gap: 2rem;
     height: 100%;
     user-select: none;
-    transition: column-gap 400ms linear, opacity 200ms linear,
-        backdrop-filter 400ms linear;
-    backdrop-filter: blur(4px) brightness(0.6);
+    transition: column-gap 400ms ease-in, opacity 200ms ease-in,
+        backdrop-filter 400ms ease-in;
+    backdrop-filter: blur(7px) brightness(0.3);
     overflow-y: scroll;
 
-    background: transparent;
+    /* background: transparent; */
     column-gap: 15em;
     opacity: 0;
 }
@@ -232,6 +233,7 @@ article img {
 .title {
     text-transform: uppercase;
     font-size: clamp(2em, 5vw, 3.5em);
+    letter-spacing: 0.1em;
     grid-area: title;
 }
 .explanation {
@@ -246,4 +248,24 @@ article img {
 }
 .m-inline-start-auto {
     margin-inline-start: auto;
+}
+
+@media screen and (min-width: 800px) {
+    .text-container {
+        grid-template-areas:
+            " . . explanation"
+            "title . explanation"
+            ". . explanation"
+            "copyright . explanation"
+            ". . explanation"
+            ". . ."
+            ". . .";
+    }
+    .title,
+    .copyright {
+        text-align: left;
+    }
+    .explanation {
+        text-align: right;
+    }
 }

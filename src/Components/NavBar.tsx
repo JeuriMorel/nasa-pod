@@ -1,4 +1,4 @@
-type NavBarProps = {
+interface NavBarProps  {
     children: React.ReactNode
 }
 function NavBar(props: NavBarProps) {
