@@ -178,6 +178,9 @@ button:hover {
     color: var(--nav-color-hover);
     outline-width: 2px;
 }
+button:disabled{
+    color: red;
+}
 
 main {
     display: flex;

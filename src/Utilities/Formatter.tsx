@@ -2,7 +2,7 @@ const formatter = new Intl.DateTimeFormat("en-us", {
     year: "numeric",
     month: "long",
     day: "numeric",
-    timeZone: "GMT",
+    timeZone: "America/Los_Angeles",
 })
 
 
