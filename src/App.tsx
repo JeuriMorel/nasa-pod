@@ -2,17 +2,16 @@ import PhotoWrapper from "./Components/PhotoWrapper"
 import Button from "./Components/Button"
 import NavBar from "./Components/NavBar"
 import Formatter from "./Utilities/Formatter"
-import { DateHandler } from "./Utilities/DateHandler"
-import { useState } from "react"
+import { DateHandler, isCurrentMinOrMax } from "./Utilities/DateHandler"
+import { useMemo, useState } from "react"
 
 
 function App() {
     const [date_handler, set_date_handler] = useState(new DateHandler())
     let current_date = Formatter(date_handler.current)
+    const current_is_min = useMemo(()=> isCurrentMinOrMax( date_handler, 'min'), [date_handler])
+    const current_is_max = useMemo(()=> isCurrentMinOrMax( date_handler, 'max'), [date_handler])
 
-    function isCurrentMinOrMax(value: keyof DateHandler): boolean {
-        return date_handler.current.getTime() == date_handler[value].getTime()
-    }
 
     function updateDate(value: number) {
         if (value < 0 && date_handler.current.getTime() == date_handler.min.getTime()) return
@@ -36,19 +35,19 @@ function App() {
                     className={"m-inline-end-sm m-inline-start-auto"}
                     button_text="&#60;"
                     onClick={()=> updateDate(-1)}
-                    disabled={isCurrentMinOrMax('min')}
+                    disabled={current_is_min}
                 />
                 <Button
-                    className={"m-inline-end-sm"}
+                    className={"m-inline-end-sm button-date"}
                     button_text={current_date}
                 />
                 <Button
                     button_text="&#62;"
                     onClick={()=> updateDate(1)}
-                    disabled={isCurrentMinOrMax('max')}
+                    disabled={current_is_max}
                 />
                 <Button
-                    className={"m-inline-start-auto"}
+                    className={"m-inline-start-auto m-inline-end-sm"}
                     button_text="random"
                 />
             </NavBar>
