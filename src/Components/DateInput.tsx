@@ -1,4 +1,12 @@
-function DateInput() {
+import { DateHandler } from "../Utilities/DateHandler"
+import Formatter from "../Utilities/Formatter"
+
+
+type DateInputProps = {
+    dateHandler: DateHandler
+}
+
+function DateInput({dateHandler}: DateInputProps) {
     return (
         <>
             <label htmlFor="photo-search">Search date:</label>
@@ -6,10 +14,10 @@ function DateInput() {
             <input
                 type="date"
                 id="photo-search"
-                name="trip-start"
-                value="2018-07-22"
-                min="1995-06-16"
-                max="2018-12-31"
+                name="photo-search"
+                defaultValue={Formatter(dateHandler.today, "input")}
+                min={Formatter(dateHandler.min, "input")}
+                max={Formatter(dateHandler.max, "input")}
             ></input>
         </>
     )

@@ -1,7 +1,18 @@
+import Button from "./Button"
 
-function Modal() {
+type ModalProps = {
+  children: React.ReactNode
+  modalRef: React.RefObject<HTMLDialogElement>
+}
+
+
+function Modal({children, modalRef}: ModalProps) {
   return (
-    <dialog></dialog>
+    <dialog ref={modalRef} className="flow">
+      {children}
+      <Button button_text="&times;" onClick={() => modalRef.current?.close()}
+      className="btn-close-modal"></Button>
+    </dialog>
   )
 }
 

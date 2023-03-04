@@ -71,6 +71,7 @@ textarea,
 button,
 select {
     font: inherit;
+    color: inherit;
 }
 
 html,
@@ -89,6 +90,8 @@ body {
     --text-color: var(--clr-nebula-900);
     --nav-color: var(--clr-nebula-700);
     --nav-color-hover: var(--clr-nebula-900);
+    --date-btn-outline-clr-1: var(--clr-nebula-300);
+    --date-btn-outline-clr-2: var(--clr-nebula-700);
     font-family: "Strait", sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -114,7 +117,7 @@ header {
     width: 1px;
     overflow: hidden;
 }
-input[type="checkbox"]:is(:hover, :focus-visible) + label {
+/* input[type="checkbox"]:is(:hover, :focus-visible) + label {
     outline: 1px solid red;
     user-select: none;
 }
@@ -142,7 +145,7 @@ label::before {
     border-radius: 50%;
     border: 1px solid var(--clr-luna-700);
     background-color: var(--clr-luna-300);
-}
+} */
 nav {
     width: 100%;
     display: flex;
@@ -163,6 +166,33 @@ nav :nth-child(3) {
 /* #nav-toggle:checked ~ nav {
     transform: translateY(-200%);
 } */
+
+dialog {
+    padding: 2rem;
+    background-color: transparent;
+    color: var(--clr-nebula-700);
+    margin: auto;
+    min-width: clamp(15rem, 70vw, 35rem);
+    user-select: none;
+    font-size: 2em;
+    font-weight: bold;
+    letter-spacing: 2px;
+    backdrop-filter: blur(10px) brightness(70%);
+}
+::backdrop {
+    backdrop-filter: blur(10px) brightness(80%);
+}
+label {
+    display: block;
+}
+input[type="date"] {
+    background-color: transparent;
+    border: none;
+    backdrop-filter: brightness(10%);
+    outline: 1px solid;
+    outline-offset: 0.5em;
+    /* color: var(--clr-nebula-700); */
+}
 
 button {
     padding: 0.75em 1.25em;
@@ -264,15 +294,20 @@ article img {
     position: relative;
     overflow: hidden;
     border-radius: 4px;
+    backdrop-filter: none;
 }
 .button-date::before {
     content: "";
     position: absolute;
     width: 120%;
     height: 40%;
-    background: var(--text-color);
+    background: linear-gradient(
+        to left,
+        var(--date-btn-outline-clr-1),
+        var(--date-btn-outline-clr-2)
+    );
     z-index: -2;
-    /* animation: spin 9s linear infinite; */
+    /* animation: spin 9s ease-in-out infinite; */
 }
 .button-date::after {
     content: "";
@@ -281,6 +316,14 @@ article img {
     background-color: var(--bg-color);
     border-radius: 5px;
     z-index: -1;
+}
+.btn-close-modal {
+    position: absolute;
+    inset: 0.5em 0.5em auto auto;
+    outline: none;
+    margin: 0;
+    /* font-size: 2em; */
+    padding: 0.5em 1em;
 }
 @keyframes spin {
     0% {
