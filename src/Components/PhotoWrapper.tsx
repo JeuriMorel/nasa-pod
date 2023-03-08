@@ -1,10 +1,25 @@
 import PhotoImg from "./PhotoImg"
 
-function PhotoWrapper() {
+interface PhotoWrapperProps {
+    explanation: string
+    title: string
+    copyright: string | null
+    url: string
+    hdurl: string
+    media_type: string
+    
+}
+
+function PhotoWrapper({ explanation, title, copyright=null, hdurl, media_type, url }: PhotoWrapperProps) {
     return (
         <>
             <article>
-                {media_type == "image" && <PhotoImg smallImgSrc={ smallImgSrc} largeImgSrc={ largeImgSrc}/>}
+                {media_type == "image" && (
+                    <PhotoImg
+                        smallImgSrc={url}
+                        largeImgSrc={hdurl}
+                    />
+                )}
                 <div className="text-container flow">
                     <p className="title">{title}</p>
                     <p className="explanation">{explanation}</p>
@@ -20,17 +35,17 @@ function PhotoWrapper() {
 
 export default PhotoWrapper
 
-const title = "Crescent Moon Occultation"
+// const title = "Crescent Moon Occultation"
 
-const largeImgSrc =
-"https://apod.nasa.gov/apod/image/2302/JupiterOccultationFefoBouvier.jpg"
-const smallImgSrc =
-"https://apod.nasa.gov/apod/image/2302/JupiterOccultationFefoBouvier1024.jpg"
-const explanation =
-"On February 22, a young Moon shared the western sky at sunset with bright planets Venus and Jupiter along the ecliptic plane. The beautiful celestial conjunction was visible around planet Earth. But from some locations Jupiter hid for a while, occulted by the crescent lunar disk. The Solar System's ruling gas giant was captured here just before it disappeared behind the the Moon's dark edge, seen over the R\u00edo de la Plata at Colonia del Sacramento, Uruguay.  In the serene river and skyscape Venus is not so shy, shining brightly closer to the horizon through the fading twilight. Next week Venus and Jupiter will appear even closer in your evening sky."
+// const largeImgSrc =
+//     "https://apod.nasa.gov/apod/image/2302/JupiterOccultationFefoBouvier.jpg"
+// const smallImgSrc =
+//     "https://apod.nasa.gov/apod/image/2302/JupiterOccultationFefoBouvier1024.jpg"
+// const explanation =
+//     "On February 22, a young Moon shared the western sky at sunset with bright planets Venus and Jupiter along the ecliptic plane. The beautiful celestial conjunction was visible around planet Earth. But from some locations Jupiter hid for a while, occulted by the crescent lunar disk. The Solar System's ruling gas giant was captured here just before it disappeared behind the the Moon's dark edge, seen over the R\u00edo de la Plata at Colonia del Sacramento, Uruguay.  In the serene river and skyscape Venus is not so shy, shining brightly closer to the horizon through the fading twilight. Next week Venus and Jupiter will appear even closer in your evening sky."
 
-const copyright = "Tara Mostofi"
-const media_type = "image"
+// const copyright = "Tara Mostofi"
+// const media_type = "image"
 
 /*
 {"copyright":"Tara Mostofi",

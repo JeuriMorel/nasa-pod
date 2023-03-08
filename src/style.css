@@ -58,13 +58,13 @@
     box-sizing: border-box;
 }
 
-img,
+/* img,
 picture,
 svg,
 video {
     display: block;
     max-width: 100%;
-}
+} */
 
 input,
 textarea,
@@ -160,25 +160,32 @@ nav {
 nav :nth-child(3) {
     margin-inline-end: calc(clamp(2em, 5vw, 4em) * -2);
 }
-/* nav :is(:last-child, :first-child){
-    margin-inline-start: auto;
-} */
-/* #nav-toggle:checked ~ nav {
-    transform: translateY(-200%);
-} */
 
 dialog {
     padding: 2rem;
     background-color: transparent;
     color: var(--clr-nebula-700);
     margin: auto;
-    min-width: clamp(15rem, 70vw, 35rem);
     user-select: none;
     font-size: 2em;
-    font-weight: bold;
     letter-spacing: 2px;
     backdrop-filter: blur(10px) brightness(70%);
+    border: none;
 }
+form {
+    min-width: clamp(15rem, 70vw, 35rem);
+}
+.input-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.input-wrapper > * {
+    outline: 1px solid;
+    padding: 0;
+    outline-offset: 0.5em;
+}
+
 ::backdrop {
     backdrop-filter: blur(10px) brightness(80%);
 }
@@ -189,8 +196,8 @@ input[type="date"] {
     background-color: transparent;
     border: none;
     backdrop-filter: brightness(10%);
-    outline: 1px solid;
-    outline-offset: 0.5em;
+    /* outline: 1px solid;
+    outline-offset: 0.5em; */
     /* color: var(--clr-nebula-700); */
 }
 
@@ -230,9 +237,9 @@ article {
 article img {
     position: absolute;
     z-index: -1;
-    inset: -5vw;
     object-fit: cover;
-    inset: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .text-container {
@@ -250,19 +257,15 @@ article img {
     gap: 2rem;
     height: 100%;
     user-select: none;
-    transition: column-gap 400ms ease-in, opacity 200ms ease-in,
-        backdrop-filter 400ms ease-in;
+    transition: opacity 200ms ease-in, backdrop-filter 400ms ease-in;
     backdrop-filter: blur(7px) brightness(0.3);
     overflow-y: scroll;
-
-    /* background: transparent; */
     column-gap: 15em;
     opacity: 0;
 
     cursor: zoom-in;
 }
 .text-container:hover {
-    column-gap: clamp(2em, 1vw, 8rem);
     opacity: 1;
 }
 
