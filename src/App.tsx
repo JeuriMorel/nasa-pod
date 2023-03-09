@@ -13,32 +13,31 @@ function App() {
     const [date_handler, set_date_handler] = useState(new DateHandler())
 
     const nasa_keys = {
-        url: import.meta.env.VITE_NASA_API_URL,
-        key: import.meta.env.VITE_NASA_API_KEY
+        url: import.meta.env.VITE_NASA_API_URL as string,
+        key: import.meta.env.VITE_NASA_API_KEY as string,
     }
-
 
     const { isLoading, isSuccess, isError, data, error, refetch } = useQuery({
         queryKey: ["photos", date_handler.current],
         queryFn: fetchPhotoToday,
-        staleTime: Infinity
+        staleTime: Infinity,
     })
 
     async function fetchPhotoToday() {
-        console.log(Formatter(date_handler.current, "input"))
+        console.log("fetching")
         try {
-            const response = await axios.get(
-                nasa_keys.url, {
-                    params: {api_key: nasa_keys.key, date: Formatter(date_handler.current, "input")}
-                }
-            )
+            const response = await axios.get(nasa_keys.url, {
+                params: {
+                    api_key: nasa_keys.key,
+                    date: Formatter(date_handler.current, true),
+                },
+            })
             return response
         } catch (error) {
             console.error(error)
         }
     }
 
-    
     let current_date = Formatter(date_handler.current)
     const current_is_min = useMemo(
         () => isCurrentMinOrMax(date_handler, "min"),
@@ -50,23 +49,28 @@ function App() {
     )
     const modalRef = useRef<HTMLDialogElement>(null)
     const formRef = useRef<HTMLFormElement>(null)
+    const inputRef = useRef<HTMLInputElement>(null)
 
     // formRef.current?.onSubmit = () => {
     //     console.log(formRef)
     // }
-    
-    
 
     function toggleModal() {
         modalRef.current?.showModal()
     }
 
-    // const explanation =
-    //     "On February 22, a young Moon shared the western sky at sunset with bright planets Venus and Jupiter along the ecliptic plane. The beautiful celestial conjunction was visible around planet Earth. But from some locations Jupiter hid for a while, occulted by the crescent lunar disk. The Solar System's ruling gas giant was captured here just before it disappeared behind the the Moon's dark edge, seen over the R\u00edo de la Plata at Colonia del Sacramento, Uruguay.  In the serene river and skyscape Venus is not so shy, shining brightly closer to the horizon through the fading twilight. Next week Venus and Jupiter will appear even closer in your evening sky."
+    function handleSubmit() {
+        const input_value_as_date = new Date(inputRef.current?.value as string)
 
-    // const title = "Crescent Moon Occultation"
+        if (
+            input_value_as_date instanceof Date &&
+            isFinite(input_value_as_date.getTime())
+        ) {
+            date_handler.current = input_value_as_date
 
-    // const copyright = "Tara Mostofi"
+            set_date_handler({ ...date_handler })
+        }
+    }
 
     function updateDate(value: number) {
         if (
@@ -85,13 +89,17 @@ function App() {
         set_date_handler({ ...date_handler })
     }
 
-
     return (
         <>
             <main>
                 <PhotoWrapper {...data?.data} />
                 <Modal modalRef={modalRef}>
-                    <DateInput dateHandler={date_handler} formRef={ formRef} />
+                    <DateInput
+                        dateHandler={date_handler}
+                        formRef={formRef}
+                        onSubmit={handleSubmit}
+                        inputRef={inputRef}
+                    />
                 </Modal>
             </main>
             <NavBar>
