@@ -23,12 +23,19 @@ function App() {
         staleTime: Infinity,
     })
 
+    function setRandomDate() {
+        const start = date_handler.min_in_ms
+        const end = date_handler.max_in_ms
+        setCurrentDate(new Date(start + Math.random() * (end - start)))
+    }
+
     async function fetchPhotoToday() {
-        console.log("fetching")
         try {
             const response = await axios.get(nasa_keys.url, {
                 params: {
                     api_key: nasa_keys.key,
+                    concept_tags: true,
+                    thumbs: true,
                     date: Formatter(date_handler.current, true),
                 },
             })
@@ -40,20 +47,17 @@ function App() {
 
     let current_date = Formatter(date_handler.current)
     const current_is_min = useMemo(
-        () => isCurrentMinOrMax(date_handler, "min"),
+        () => isCurrentMinOrMax(date_handler, date_handler.min),
         [date_handler]
     )
     const current_is_max = useMemo(
-        () => isCurrentMinOrMax(date_handler, "max"),
+        () => isCurrentMinOrMax(date_handler, date_handler.max),
         [date_handler]
     )
     const modalRef = useRef<HTMLDialogElement>(null)
     const formRef = useRef<HTMLFormElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
 
-    // formRef.current?.onSubmit = () => {
-    //     console.log(formRef)
-    // }
 
     function toggleModal() {
         modalRef.current?.showModal()
@@ -62,11 +66,24 @@ function App() {
     function handleSubmit() {
         const input_value_as_date = new Date(inputRef.current?.value as string)
 
+        setCurrentDate(input_value_as_date)
+
+        // if (
+        //     input_value_as_date instanceof Date &&
+        //     isFinite(input_value_as_date.getTime())
+        // ) {
+        //     date_handler.current = input_value_as_date
+
+        //     set_date_handler({ ...date_handler })
+        // }
+    }
+
+    function setCurrentDate(new_current: Date) {
         if (
-            input_value_as_date instanceof Date &&
-            isFinite(input_value_as_date.getTime())
+            new_current instanceof Date &&
+            isFinite(new_current.getTime())
         ) {
-            date_handler.current = input_value_as_date
+            date_handler.current = new_current
 
             set_date_handler({ ...date_handler })
         }
@@ -99,6 +116,7 @@ function App() {
                         formRef={formRef}
                         onSubmit={handleSubmit}
                         inputRef={inputRef}
+                        
                     />
                 </Modal>
             </main>
@@ -122,6 +140,7 @@ function App() {
                 <Button
                     className={"m-inline-start-auto m-inline-end-sm"}
                     button_text="random"
+                    onClick={setRandomDate}
                 />
             </NavBar>
         </>
