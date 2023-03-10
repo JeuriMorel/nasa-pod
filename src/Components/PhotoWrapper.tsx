@@ -7,17 +7,29 @@ interface PhotoWrapperProps {
     url: string
     hdurl: string
     media_type: string
-    
+    thumbnail_url: string
 }
 
-function PhotoWrapper({ explanation, title, copyright=null, hdurl, media_type, url }: PhotoWrapperProps) {
+function PhotoWrapper({
+    explanation,
+    title,
+    copyright = null,
+    hdurl,
+    media_type,
+    url,
+    thumbnail_url,
+}: PhotoWrapperProps) {
+    if (media_type == "video") console.log("this is a video")
     return (
         <>
             <article>
                 {media_type == "image" && (
+                    <PhotoImg smallImgSrc={url} largeImgSrc={hdurl} />
+                )}
+                {media_type == "video" && (
                     <PhotoImg
-                        smallImgSrc={url}
-                        largeImgSrc={hdurl}
+                        smallImgSrc={thumbnail_url}
+                        largeImgSrc={thumbnail_url}
                     />
                 )}
                 <div className="text-container flow">

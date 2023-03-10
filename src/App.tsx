@@ -19,7 +19,7 @@ function App() {
 
     const { isLoading, isSuccess, isError, data, error, refetch } = useQuery({
         queryKey: ["photos", date_handler.current],
-        queryFn: fetchPhotoToday,
+        queryFn: fetchPicture,
         staleTime: Infinity,
     })
 
@@ -29,12 +29,11 @@ function App() {
         setCurrentDate(new Date(start + Math.random() * (end - start)))
     }
 
-    async function fetchPhotoToday() {
+    async function fetchPicture() {
         try {
             const response = await axios.get(nasa_keys.url, {
                 params: {
                     api_key: nasa_keys.key,
-                    concept_tags: true,
                     thumbs: true,
                     date: Formatter(date_handler.current, true),
                 },
