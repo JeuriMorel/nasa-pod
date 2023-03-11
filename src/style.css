@@ -112,7 +112,10 @@ body {
     margin-block-start: var(--flow-spacer, 1em);
 }
 
-h1, h2, h3, h4{
+h1,
+h2,
+h3,
+h4 {
     line-height: 1.1;
     max-width: 20ch;
     /* text-wrap: balance; */
@@ -132,35 +135,7 @@ header {
     width: 1px;
     overflow: hidden;
 }
-/* input[type="checkbox"]:is(:hover, :focus-visible) + label {
-    outline: 1px solid red;
-    user-select: none;
-}
-label {
-    cursor: pointer;
-    display: inline-block;
-    transition: scale 300ms linear;
-    position: fixed;
-    right: 1em;
-    top: 1em;
-    z-index: 10;
-    border-radius: 50%;
-}
-label:hover {
-    scale: 1.1;
-}
-label:active {
-    scale: 0.9;
-}
-label::before {
-    content: "";
-    display: inline-block;
-    height: 2em;
-    width: 2em;
-    border-radius: 50%;
-    border: 1px solid var(--clr-luna-700);
-    background-color: var(--clr-luna-300);
-} */
+
 nav {
     width: 100%;
     display: flex;
@@ -259,7 +234,7 @@ article img {
 
 .text-container {
     display: grid;
-    padding-inline: 2em;
+    padding: 1em var(--size-step-4);
     text-align: center;
     grid-template-areas:
         " . title ."
@@ -269,13 +244,13 @@ article img {
         "explanation explanation explanation"
         ". . ."
         ". . .";
-    gap: 2rem;
+    row-gap: 1em;
     height: 100%;
     user-select: none;
     transition: opacity 200ms ease-in, backdrop-filter 400ms ease-in;
     backdrop-filter: blur(7px) brightness(0.3);
     overflow-y: scroll;
-    column-gap: 15em;
+    /* column-gap: 5em; */
     opacity: 0;
 
     cursor: zoom-in;
@@ -294,6 +269,7 @@ article img {
     grid-area: explanation;
     font-size: var(--size-step-1);
     max-width: 70ch;
+    padding-bottom: var(--size-step-3);
 }
 .copyright {
     grid-area: copyright;
@@ -355,8 +331,9 @@ article img {
 
 @media screen and (min-width: 800px) {
     .text-container {
+        column-gap: 2rem;
         grid-template-areas:
-            " . . explanation"
+            " . . ."
             "title . explanation"
             ". . explanation"
             "copyright . explanation"
@@ -367,9 +344,6 @@ article img {
     .title,
     .copyright {
         text-align: left;
-    }
-    .explanation {
-        text-align: right;
     }
 }
 @media (prefers-reduced-motion: reduce) {

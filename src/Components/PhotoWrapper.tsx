@@ -32,8 +32,8 @@ function PhotoWrapper({
                         largeImgSrc={thumbnail_url}
                     />
                 )}
-                <div className="text-container flow">
-                    <h1 className="title">{title}</h1>
+                <div className="text-container">
+                    <h1 className="title">{title && title.replace("Credit:", '')}</h1>
                     <p className="explanation">{explanation}</p>
 
                     {copyright && (

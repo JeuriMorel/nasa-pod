@@ -1,13 +1,13 @@
+import { adjustDate } from "./DateHandler"
+
 const formatter = new Intl.DateTimeFormat("en-us", {
     year: "numeric",
     month: "long",
     day: "numeric",
-    timeZone: "America/Los_Angeles",
 })
 
 function Formatter(date: Date, iso_format=false) {
     if (iso_format) return formatAsISO(date)
-    // if (format_type == "input") return date.toISOString().split("T")[0]
 
     return formatter.format(date)
 }

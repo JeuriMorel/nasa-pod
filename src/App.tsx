@@ -2,7 +2,7 @@ import PhotoWrapper from "./Components/PhotoWrapper"
 import Button from "./Components/Button"
 import NavBar from "./Components/NavBar"
 import Formatter from "./Utilities/Formatter"
-import { DateHandler, isCurrentMinOrMax } from "./Utilities/DateHandler"
+import { adjustDate, DateHandler, isCurrentMinOrMax } from "./Utilities/DateHandler"
 import { useMemo, useRef, useState } from "react"
 import Modal from "./Components/Modal"
 import DateInput from "./Components/DateInput"
@@ -26,7 +26,7 @@ function App() {
     function setRandomDate() {
         const start = date_handler.min_in_ms
         const end = date_handler.max_in_ms
-        setCurrentDate(new Date(start + Math.random() * (end - start)))
+        setCurrentDate(adjustDate(new Date(start + Math.random() * (end - start))))
     }
 
     async function fetchPicture() {
@@ -38,6 +38,8 @@ function App() {
                     date: Formatter(date_handler.current, true),
                 },
             })
+            console.log(response)
+            console.log(date_handler)
             return response
         } catch (error) {
             console.error(error)
@@ -63,18 +65,12 @@ function App() {
     }
 
     function handleSubmit() {
-        const input_value_as_date = new Date(inputRef.current?.value as string)
+        const input_value_as_date = adjustDate(new Date(inputRef.current?.value as string))
+
+        input_value_as_date.setDate(input_value_as_date.getDate() + 1)
 
         setCurrentDate(input_value_as_date)
 
-        // if (
-        //     input_value_as_date instanceof Date &&
-        //     isFinite(input_value_as_date.getTime())
-        // ) {
-        //     date_handler.current = input_value_as_date
-
-        //     set_date_handler({ ...date_handler })
-        // }
     }
 
     function setCurrentDate(new_current: Date) {
