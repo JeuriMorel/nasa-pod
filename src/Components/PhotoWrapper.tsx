@@ -33,7 +33,7 @@ function PhotoWrapper({
                     />
                 )}
                 <div className="text-container flow">
-                    <p className="title">{title}</p>
+                    <h1 className="title">{title}</h1>
                     <p className="explanation">{explanation}</p>
 
                     {copyright && (
