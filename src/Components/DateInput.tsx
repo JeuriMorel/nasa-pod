@@ -34,8 +34,8 @@ function DateInput({ dateHandler, formRef, onSubmit, inputRef }: DateInputProps)
                         id="photo-search"
                         name="photo-search"
                         defaultValue={Formatter(dateHandler.today, true)}
-                        min={Formatter(dateHandler.min, true)}
-                        max={Formatter(dateHandler.max, true)}
+                        min={Formatter(dateHandler.MIN.value, true)}
+                        max={Formatter(dateHandler.MAX.value, true)}
                     ></input>
                     <button type="submit">query photo</button>
                 </div>

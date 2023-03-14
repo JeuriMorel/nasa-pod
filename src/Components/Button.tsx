@@ -1,7 +1,9 @@
+import {MouseEventHandler} from 'react'
+
 interface ButtonProps {
     button_text: string
     className?: string
-    onClick?: Function
+    onClick?: MouseEventHandler<HTMLButtonElement>
     disabled?: boolean
 }
 
@@ -10,7 +12,7 @@ function Button({ button_text, className, onClick, disabled= false }: ButtonProp
         <>
             <button
                 className={`nav-button ${className}`}
-                onClick={() => onClick?.()}
+                onClick={onClick}
                 disabled={disabled}
             >
                 {button_text}

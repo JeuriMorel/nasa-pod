@@ -38,8 +38,6 @@ function App() {
                     date: Formatter(date_handler.current, true),
                 },
             })
-            console.log(response)
-            console.log(date_handler)
             return response
         } catch (error) {
             console.error(error)
@@ -48,14 +46,15 @@ function App() {
 
     let current_date = Formatter(date_handler.current)
     const current_is_min = useMemo(
-        () => isCurrentMinOrMax(date_handler, date_handler.min),
+        () => isCurrentMinOrMax(date_handler, date_handler.MIN),
         [date_handler]
     )
     const current_is_max = useMemo(
-        () => isCurrentMinOrMax(date_handler, date_handler.max),
+        () => isCurrentMinOrMax(date_handler, date_handler.MAX),
         [date_handler]
     )
     const modalRef = useRef<HTMLDialogElement>(null)
+    
     const formRef = useRef<HTMLFormElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
 
@@ -87,12 +86,12 @@ function App() {
     function updateDate(value: number) {
         if (
             value < 0 &&
-            date_handler.current.getTime() == date_handler.min.getTime()
+            isCurrentMinOrMax(date_handler, date_handler.MIN)
         )
             return
         if (
             value > 0 &&
-            date_handler.current.getTime() == date_handler.max.getTime()
+            isCurrentMinOrMax(date_handler, date_handler.MAX)
         )
             return
 

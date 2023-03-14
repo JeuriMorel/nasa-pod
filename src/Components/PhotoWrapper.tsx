@@ -1,4 +1,5 @@
 import PhotoImg from "./PhotoImg"
+import Modal from "./Modal"
 
 interface PhotoWrapperProps {
     explanation: string
@@ -41,6 +42,17 @@ function PhotoWrapper({
                     )}
                 </div>
             </article>
+            <Modal>
+            {media_type == "image" && (
+                    <PhotoImg smallImgSrc={url} largeImgSrc={hdurl} />
+                )}
+                {media_type == "video" && (
+                    <PhotoImg
+                        smallImgSrc={thumbnail_url}
+                        largeImgSrc={thumbnail_url}
+                    />
+                )}
+            </Modal>
         </>
     )
 }
