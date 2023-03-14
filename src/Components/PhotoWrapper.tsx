@@ -1,5 +1,7 @@
 import PhotoImg from "./PhotoImg"
 import Modal from "./Modal"
+import { MouseEvent } from "react"
+import PhotoVideo from "./PhotoVideo"
 
 interface PhotoWrapperProps {
     explanation: string
@@ -21,9 +23,16 @@ function PhotoWrapper({
     thumbnail_url,
 }: PhotoWrapperProps) {
     if (media_type == "video") console.log("this is a video")
+    function showImage(event: MouseEvent) {
+        event.stopPropagation()
+        const modal = (event.currentTarget as HTMLElement).querySelector(
+            "dialog"
+        )
+        modal?.showModal()
+    }
     return (
         <>
-            <article>
+            <article onClick={showImage}>
                 {media_type == "image" && (
                     <PhotoImg smallImgSrc={url} largeImgSrc={hdurl} />
                 )}
@@ -34,25 +43,23 @@ function PhotoWrapper({
                     />
                 )}
                 <div className="text-container">
-                    <h1 className="title">{title && title.replace("Credit:", '')}</h1>
+                    <h1 className="title">
+                        {title && title.replace("Credit:", "")}
+                    </h1>
                     <p className="explanation">{explanation}</p>
 
                     {copyright && (
                         <p className="copyright">Copyright: {copyright}</p>
                     )}
                 </div>
+
+                <Modal>
+                    {media_type == "image" && (
+                        <PhotoImg smallImgSrc={url} largeImgSrc={hdurl} />
+                    )}
+                    {media_type == "video" && <PhotoVideo source={url} />}
+                </Modal>
             </article>
-            <Modal>
-            {media_type == "image" && (
-                    <PhotoImg smallImgSrc={url} largeImgSrc={hdurl} />
-                )}
-                {media_type == "video" && (
-                    <PhotoImg
-                        smallImgSrc={thumbnail_url}
-                        largeImgSrc={thumbnail_url}
-                    />
-                )}
-            </Modal>
         </>
     )
 }

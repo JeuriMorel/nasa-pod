@@ -232,6 +232,10 @@ article img {
     height: 100%;
 }
 
+article dialog img {
+    position: relative;
+}
+
 .text-container {
     display: grid;
     padding: 1em var(--size-step-4);
@@ -302,7 +306,7 @@ article img {
         var(--date-btn-outline-clr-2)
     );
     z-index: -2;
-    /* animation: spin 9s ease-in-out infinite; */
+    /* animation: spin 8s ease-in-out infinite; */
 }
 .button-date::after {
     content: "";
@@ -313,13 +317,22 @@ article img {
     z-index: -1;
 }
 .btn-close-modal {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
     position: absolute;
-    inset: 0.5em 0.5em auto auto;
+    font-size: 1.25em;
+    inset: 0.125em 0.25em auto auto;
+    outline: 1px solid red;
     outline: none;
     margin: 0;
-    /* font-size: 2em; */
-    padding: 0.5em 1em;
+    padding: 0.125em 0.25em;
+    opacity: 0.3;
+    transition: opacity 150ms ease-in;
 }
+.btn-close-modal:is(:hover, :focus-visible){
+    opacity: 1;
+}
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
