@@ -30,6 +30,7 @@ function App() {
     }
 
     async function fetchPicture() {
+        console.log(Formatter(date_handler.current, true))
         try {
             const response = await axios.get(nasa_keys.url, {
                 params: {
@@ -77,9 +78,8 @@ function App() {
             new_current instanceof Date &&
             isFinite(new_current.getTime())
         ) {
-            date_handler.current = new_current
 
-            set_date_handler({ ...date_handler })
+            set_date_handler({ ...date_handler, current: new_current })
         }
     }
 
@@ -97,13 +97,13 @@ function App() {
 
         date_handler.current.setDate(date_handler.current.getDate() + value)
 
-        set_date_handler({ ...date_handler })
+        set_date_handler({ ...date_handler})
     }
 
     return (
         <>
             <main>
-                <PhotoWrapper {...data?.data} />
+                {isSuccess && <PhotoWrapper {...data?.data} />}
                 <Modal modalRef={modalRef}>
                     <DateInput
                         dateHandler={date_handler}
@@ -116,7 +116,7 @@ function App() {
             </main>
             <NavBar>
                 <Button
-                    className={"m-inline-end-sm m-inline-start-auto"}
+                    className={"m-inline-end-sm m-inline-start-auto shift-button shift-button-left"}
                     button_text="&#60;"
                     onClick={() => updateDate(-1)}
                     disabled={current_is_min}
@@ -127,6 +127,7 @@ function App() {
                     onClick={toggleModal}
                 />
                 <Button
+                    className={"shift-button shift-button-right"}
                     button_text="&#62;"
                     onClick={() => updateDate(1)}
                     disabled={current_is_max}

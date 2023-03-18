@@ -8,14 +8,6 @@ type DateInputProps = {
     onSubmit: () => void
 }
 
-// function handleSubmit(event: React.SyntheticEvent) {
-//     console.log(event.currentTarget)
-//     const form = event.currentTarget
-//     const formData = new FormData(form)
-//     const date_input = formData.get('photo-search')
-//     console.log(date_input)
-// }
-
 function DateInput({ dateHandler, formRef, onSubmit, inputRef }: DateInputProps) {
     return (
         <>
@@ -25,7 +17,7 @@ function DateInput({ dateHandler, formRef, onSubmit, inputRef }: DateInputProps)
                 ref={formRef}
                 onSubmit={onSubmit}
             >
-                <label htmlFor="photo-search">Search date:</label>
+                <label htmlFor="photo-search">{`Pick a date between ${Formatter(dateHandler.MIN.value)} and ${Formatter(dateHandler.MAX.value)}:`}</label>
 
                 <div className="input-wrapper">
                     <input

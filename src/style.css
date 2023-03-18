@@ -91,12 +91,12 @@ html {
 }
 
 body {
-    --bg-color: var(--clr-nebula-100);
-    --text-color: var(--clr-nebula-900);
-    --nav-color: var(--clr-nebula-700);
-    --nav-color-hover: var(--clr-nebula-900);
-    --date-btn-outline-clr-1: var(--clr-nebula-300);
-    --date-btn-outline-clr-2: var(--clr-nebula-700);
+    --bg-color: var(--clr-far-away-100);
+    --text-color: var(--clr-far-away-900);
+    --nav-color: var(--clr-far-away-700);
+    --nav-color-hover: var(--clr-far-away-900);
+    --date-btn-outline-clr-1: var(--clr-far-away-300);
+    --date-btn-outline-clr-2: var(--clr-far-away-700);
     font-family: "Strait", sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -154,7 +154,7 @@ nav :nth-child(3) {
 dialog {
     padding: 2rem;
     background-color: transparent;
-    color: var(--clr-nebula-700);
+    color: var(--nav-color);
     margin: auto;
     user-select: none;
     font-size: var(--size-step-2);
@@ -306,11 +306,12 @@ article dialog img {
         var(--date-btn-outline-clr-2)
     );
     z-index: -2;
+    filter: blur(3px);
     /* animation: spin 8s ease-in-out infinite; */
 }
 .button-date::after {
     content: "";
-    inset: 1px;
+    inset: 2px;
     position: absolute;
     background-color: var(--bg-color);
     border-radius: 5px;
@@ -329,7 +330,7 @@ article dialog img {
     opacity: 0.3;
     transition: opacity 150ms ease-in;
 }
-.btn-close-modal:is(:hover, :focus-visible){
+.btn-close-modal:is(:hover, :focus-visible) {
     opacity: 1;
 }
 

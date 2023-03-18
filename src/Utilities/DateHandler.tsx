@@ -1,11 +1,9 @@
 interface Date_Object {
-    value: Date,
-    day: number,
-    month: number,
+    value: Date
+    day: number
+    month: number
     year: number
 }
-
-
 
 export class DateHandler {
     today: Date
@@ -15,7 +13,6 @@ export class DateHandler {
     max_in_ms: number
     MAX: Date_Object
     MIN: Date_Object
-
 
     constructor() {
         this.today = adjustDate(new Date())
@@ -27,13 +24,13 @@ export class DateHandler {
             value: this.today,
             day: this.today.getDay(),
             month: this.today.getMonth(),
-            year: this.today.getFullYear()
+            year: this.today.getFullYear(),
         }
         this.MIN = {
             value: this.apod_start_date,
             day: this.apod_start_date.getDay(),
             month: this.apod_start_date.getMonth(),
-            year: this.apod_start_date.getFullYear()
+            year: this.apod_start_date.getFullYear(),
         }
     }
 }
@@ -42,11 +39,14 @@ export function isCurrentMinOrMax(
     date_handler: DateHandler,
     date_to_compare: Date_Object
 ): boolean {
-        return date_handler.current.getDay() == date_to_compare.day && date_handler.current.getMonth() == date_to_compare.month && date_handler.current.getFullYear() == date_to_compare.year
+    return (
+        date_handler.current.getDay() == date_to_compare.day &&
+        date_handler.current.getMonth() == date_to_compare.month &&
+        date_handler.current.getFullYear() == date_to_compare.year
+    )
 }
 
-export function adjustDate(oldDate: Date) {
-    oldDate.setHours(0, 0, 0, 0)
-    return oldDate
-    // return new Date( oldDate.getTime() - oldDate.getTimezoneOffset() * -60000 )
+export function adjustDate(date_to_adjust: Date) {
+    date_to_adjust.setHours(0, 0, 0, 0)
+    return date_to_adjust
 }

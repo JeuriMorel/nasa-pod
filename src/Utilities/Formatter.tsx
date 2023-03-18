@@ -1,23 +1,18 @@
-import { adjustDate } from "./DateHandler"
-
-const formatter = new Intl.DateTimeFormat("en-us", {
+const long_formatter = new Intl.DateTimeFormat("en-us", {
     year: "numeric",
     month: "long",
     day: "numeric",
 })
+const iso_formatter = new Intl.DateTimeFormat('en-CA', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+})
 
 function Formatter(date: Date, iso_format=false) {
-    if (iso_format) return formatAsISO(date)
+    if (iso_format) return iso_formatter.format(date)
 
-    return formatter.format(date)
-}
-
-function formatAsISO(date: Date) {
-    return `${date.getFullYear()}-${padDate(date.getMonth()+1)}-${padDate(date.getDate())}`
-}
-
-function padDate(date: number): string {
-    return date.toString().padStart(2, '0')
+    return long_formatter.format(date)
 }
 
 export default Formatter
