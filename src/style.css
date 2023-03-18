@@ -47,12 +47,16 @@
     --clr-luna-700: #b4b1b8;
     --clr-luna-900: #e9e8ee;
 
-    --flow-spacer: 3em;
     --size-step-0: clamp(1rem, calc(0.96rem + 0.22vw), 1.13rem);
     --size-step-1: clamp(1.25rem, calc(1.16rem + 0.43vw), 1.5rem);
     --size-step-2: clamp(1.56rem, calc(1.41rem + 0.76vw), 2rem);
     --size-step-3: clamp(1.95rem, calc(1.71rem + 1.24vw), 2.66rem);
     --size-step-4: clamp(2.44rem, calc(2.05rem + 1.93vw), 3.55rem);
+    --line-height: 1.5;
+    --line-height-header: 1.1;
+    --flow-spacer: calc(var(--line-height) * var(--size-step-0));
+    --measure: 60ch;
+    --measure-header: 20ch;
 }
 
 *,
@@ -105,7 +109,7 @@ body {
     max-width: 100%;
     min-height: 100vh;
     text-rendering: optimizeSpeed;
-    line-height: 1.5;
+    line-height: var(--line-height);
 }
 
 .flow > * + * {
@@ -116,9 +120,12 @@ h1,
 h2,
 h3,
 h4 {
-    line-height: 1.1;
-    max-width: 20ch;
+    line-height: var(--line-height-header);
+    max-inline-size: var(--measure-header);
     /* text-wrap: balance; */
+}
+p {
+    max-inline-size: var(--measure);
 }
 
 header {
@@ -146,6 +153,7 @@ nav {
     inset: auto 0 0 0;
     color: var(--nav-color);
     background: linear-gradient(to top, var(--clr-luna-300), transparent);
+    backdrop-filter: blur(3px) brightness(80%);
 }
 nav :nth-child(3) {
     margin-inline-end: calc(clamp(2em, 5vw, 4em) * -2);
@@ -237,18 +245,22 @@ article dialog img {
 }
 
 .text-container {
-    display: grid;
-    padding: 1em var(--size-step-4);
+    /* display: grid; */
+    display: flex;
+    flex-direction: column;
+    /* padding: 1em var(--size-step-4); */
+    padding-inline: var(--size-step-0);
+    /* max-inline-size: var(--measure); */
     text-align: center;
-    grid-template-areas:
+    /* grid-template-areas:
         " . title ."
         ". copyright ."
         "explanation explanation explanation"
         "explanation explanation explanation"
         "explanation explanation explanation"
         ". . ."
-        ". . .";
-    row-gap: 1em;
+        ". . ."; */
+    /* row-gap: 1em; */
     height: 100%;
     user-select: none;
     transition: opacity 200ms ease-in, backdrop-filter 400ms ease-in;
@@ -258,6 +270,7 @@ article dialog img {
     opacity: 0;
 
     cursor: zoom-in;
+    padding-block: 3rem 10rem;
 }
 .text-container:hover {
     opacity: 1;
@@ -271,8 +284,11 @@ article dialog img {
 }
 .explanation {
     grid-area: explanation;
+    box-sizing: content-box;
+    padding-inline: var(--size-step-3);
+    margin-inline: auto;
     font-size: var(--size-step-1);
-    max-width: 70ch;
+    /* max-width: 70ch; */
     padding-bottom: var(--size-step-3);
 }
 .copyright {
@@ -345,6 +361,7 @@ article dialog img {
 
 @media screen and (min-width: 800px) {
     .text-container {
+        display: grid;
         column-gap: 2rem;
         grid-template-areas:
             " . . ."
