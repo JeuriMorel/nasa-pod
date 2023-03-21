@@ -13,13 +13,14 @@ function Modal({ children, modalRef }: ModalProps) {
         modal_parent?.close()
     }
     return (
-        <dialog ref={modalRef}>
+        <dialog ref={modalRef} className="flow">
             {children}
             <Button
                 button_text="&times;"
                 onClick={close_modal}
                 className="btn-close-modal"
-            ></Button>
+                ></Button>
+                
         </dialog>
     )
 }

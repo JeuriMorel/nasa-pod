@@ -32,26 +32,26 @@ function PhotoWrapper({
     }
     return (
         <>
-            <article onClick={showImage}>
+            <article onClick={showImage} className="flow">
                 {media_type == "image" && (
                     <PhotoImg smallImgSrc={url} largeImgSrc={hdurl} />
                 )}
-                {media_type == "video" && (
+                {/* {media_type == "video" && (
                     <PhotoImg
                         smallImgSrc={thumbnail_url}
                         largeImgSrc={thumbnail_url}
                     />
-                )}
+                )} */}
+                {media_type == "video" && <PhotoVideo source={url} />}
                 <div className="text-container flow">
                     <h1 className="title">
                         {title && title.replace("Credit:", "")}
                     </h1>
-                    <p className="explanation">{explanation}</p>
-
                     {copyright && (
                         <p className="copyright">Copyright: {copyright}</p>
                     )}
                 </div>
+                <p className="explanation">{explanation}</p>
 
                 <Modal>
                     {media_type == "image" && (
