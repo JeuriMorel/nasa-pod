@@ -13,7 +13,7 @@ function Modal({ children, modalRef }: ModalProps) {
         modal_parent?.close()
     }
     return (
-        <dialog ref={modalRef} className="flow">
+        <dialog ref={modalRef}>
             {children}
             <Button
                 button_text="&times;"

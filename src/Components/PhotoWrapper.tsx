@@ -1,6 +1,6 @@
 import PhotoImg from "./PhotoImg"
 import Modal from "./Modal"
-import { MouseEventHandler } from "react"
+import { MouseEventHandler, MouseEvent } from "react"
 
 import PhotoVideo from "./PhotoVideo"
 
@@ -33,9 +33,9 @@ function PhotoWrapper({
     }
     return (
         <>
-            <article  className="flow">
+            <article className="flow" onClick={showImage}>
                 {media_type == "image" && (
-                    <PhotoImg smallImgSrc={url} largeImgSrc={hdurl} className="article-image" />
+                    <PhotoImg smallImgSrc={url} largeImgSrc={hdurl} className="article-image" isSmallImg={true} />
                 )}
                 {media_type == "video" && <PhotoVideo source={url} />}
                 <div className="text-container flow">

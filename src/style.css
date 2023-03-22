@@ -61,6 +61,7 @@
     --measure: 60ch;
     --measure-header: 20ch;
     --btn-opacity-low: 0.3;
+    --max-media-width: 560px;
 }
 
 *,
@@ -116,6 +117,10 @@ body {
     line-height: var(--line-height);
 }
 
+body:has(dialog[open]) {
+    overflow: hidden;
+}
+
 .flow > * + * {
     margin-block-start: var(--flow-spacer, 1em);
 }
@@ -164,6 +169,7 @@ nav :nth-child(3) {
 }
 
 dialog {
+    --flow-spacer: 0;
     padding: 2rem;
     box-sizing: content-box;
     background-color: transparent;
@@ -235,10 +241,11 @@ article {
     justify-content: center;
     width: 100%;
     height: auto;
-    gap: var(--size-step-0);
+    gap: var(--size-step-2);
     text-align: center;
     padding-inline: var(--size-step-0);
     padding-block: 3rem 7rem;
+    text-align: left;
 }
 
 article img {
@@ -247,7 +254,7 @@ article img {
     cursor: zoom-in;
 }
 .article-image {
-    max-inline-size: 400px;
+    max-inline-size: var(--max-media-width);
 }
 
 .title {
@@ -260,6 +267,7 @@ article img {
     font-family: var(--ff-secondary);
     color: var(--text-color-secondary);
     border-top: 1px solid;
+    /* text-align: center; */
 }
 .explanation {
     padding: var(--size-step-3);
@@ -350,6 +358,12 @@ article img {
         text-align: left;
     }
 } */
+
+@media screen and (max-width: 1130px) {
+    .text-container {
+        text-align: center;
+    }
+}
 @media (prefers-reduced-motion: reduce) {
     html:focus-within {
         scroll-behavior: auto;
