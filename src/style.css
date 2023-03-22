@@ -47,6 +47,9 @@
     --clr-luna-700: #b4b1b8;
     --clr-luna-900: #e9e8ee;
 
+    --ff-primary: "Strait", sans-serif;
+    --ff-secondary: "Bellefair", serif;
+
     --size-step-0: clamp(1rem, calc(0.96rem + 0.22vw), 1.13rem);
     --size-step-1: clamp(1.25rem, calc(1.16rem + 0.43vw), 1.5rem);
     --size-step-2: clamp(1.56rem, calc(1.41rem + 0.76vw), 2rem);
@@ -72,7 +75,7 @@ img,
 picture,
 svg,
 video {
-    display: block;
+    display: inline-block;
     max-inline-size: 100%;
 }
 
@@ -96,12 +99,14 @@ html {
 
 body {
     --bg-color: var(--clr-far-away-100);
+    --img-outline-color: var(--clr-far-away-300);
     --text-color: var(--clr-far-away-900);
+    --text-color-secondary: var(--clr-far-away-500);
     --nav-color: var(--clr-far-away-700);
     --nav-color-hover: var(--clr-far-away-900);
     --date-btn-outline-clr-1: var(--clr-far-away-300);
     --date-btn-outline-clr-2: var(--clr-far-away-700);
-    font-family: "Strait", sans-serif;
+    font-family: var(--ff-primary);
     background-color: var(--bg-color);
     color: var(--text-color);
     font-size: var(--size-step-0);
@@ -152,7 +157,7 @@ nav {
     inset: auto 0 0 0;
     color: var(--nav-color);
     background: linear-gradient(to top, var(--clr-luna-300), transparent);
-    backdrop-filter: blur(3px) brightness(80%);
+    backdrop-filter: blur(1.5rem);
 }
 nav :nth-child(3) {
     margin-inline-end: calc(clamp(2em, 5vw, 4em) * -2);
@@ -237,21 +242,31 @@ article {
 }
 
 article img {
-    outline: 1px solid var(--text-color);
+    outline: 1px solid var(--img-outline-color);
     outline-offset: 7px;
     cursor: zoom-in;
+}
+.article-image {
+    max-inline-size: 400px;
 }
 
 .title {
     text-transform: uppercase;
     font-size: var(--size-step-4);
     letter-spacing: 0.1em;
+    /* border-bottom: 1px solid; */
+}
+.copyright {
+    font-family: var(--ff-secondary);
+    color: var(--text-color-secondary);
+    border-top: 1px solid;
 }
 .explanation {
-    padding-inline: var(--size-step-3);
+    padding: var(--size-step-3);
     margin-inline: auto;
     font-size: var(--size-step-1);
-    padding-bottom: var(--size-step-3);
+    /* padding-block: var(--size-step-3); */
+    border-top: 1px solid;
 }
 
 .m-inline-end-sm {
@@ -297,6 +312,7 @@ article img {
     display: block;
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
         "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-family: var(--ff-secondary);
     font-size: 1.25em;
     margin-inline: auto;
     padding: 0.125em 0.25em;
