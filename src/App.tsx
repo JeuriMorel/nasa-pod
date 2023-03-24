@@ -30,7 +30,6 @@ function App() {
     }
 
     async function fetchPicture() {
-        console.log(Formatter(date_handler.current, true))
         try {
             const response = await axios.get(nasa_keys.url, {
                 params: {

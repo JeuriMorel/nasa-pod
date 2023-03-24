@@ -58,6 +58,7 @@
     --line-height: 1.5;
     --line-height-header: 1.1;
     --flow-spacer: calc(var(--line-height) * var(--size-step-0));
+    --flow-spacer-2x: calc(var(--line-height) * var(--size-step-3));
     --measure: 60ch;
     --measure-header: 20ch;
     --btn-opacity-low: 0.3;
@@ -99,22 +100,26 @@ html {
 }
 
 body {
-    --bg-color: var(--clr-far-away-100);
-    --img-outline-color: var(--clr-far-away-300);
-    --text-color: var(--clr-far-away-900);
-    --text-color-secondary: var(--clr-far-away-500);
-    --nav-color: var(--clr-far-away-700);
-    --nav-color-hover: var(--clr-far-away-900);
-    --date-btn-outline-clr-1: var(--clr-far-away-300);
-    --date-btn-outline-clr-2: var(--clr-far-away-700);
+    --bg-color: var(--clr-supernova-100);
+    --img-outline-color: var(--clr-supernova-300);
+    --text-color: var(--clr-supernova-900);
+    --text-color-secondary: var(--clr-supernova-500);
+    --nav-color: var(--clr-supernova-700);
+    --nav-color-hover: var(--clr-supernova-900);
+    --date-btn-outline-clr: var(--clr-supernova-700);
+    --select: var(--clr-supernova-300);
     font-family: var(--ff-primary);
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-size: var(--size-step-0);
+    font-size: var(--size-step-1);
     max-width: 100%;
     min-height: 100vh;
     text-rendering: optimizeSpeed;
     line-height: var(--line-height);
+}
+
+::selection {
+    background-color: var(--select);
 }
 
 body:has(dialog[open]) {
@@ -156,20 +161,19 @@ nav {
     width: 100%;
     display: flex;
     align-items: center;
-    /* gap: 2em; */
+    font-size: var(--size-step-0);
     padding: 1em;
     position: fixed;
     inset: auto 0 0 0;
-    color: var(--nav-color);
-    background: linear-gradient(to top, var(--clr-luna-300), transparent);
-    backdrop-filter: blur(1.5rem);
+    background-color: hsla(0, 0%, 100%, 0.2);
+    backdrop-filter: blur(5rem);
 }
 nav :nth-child(3) {
     margin-inline-end: calc(clamp(2em, 5vw, 4em) * -2);
 }
 
 dialog {
-    --flow-spacer: 0;
+    --flow-spacer: var(--flow-spacer-2x);
     padding: 2rem;
     box-sizing: content-box;
     background-color: transparent;
@@ -181,6 +185,11 @@ dialog {
     backdrop-filter: blur(10px) brightness(70%);
     border: none;
 }
+
+.flow-flexible dialog {
+    --flow-spacer: 0;
+}
+
 form {
     min-width: clamp(15rem, 70vw, 35rem);
 }
@@ -218,15 +227,19 @@ button {
     text-transform: capitalize;
     color: inherit;
     border: none;
-    backdrop-filter: blur(5px) brightness(80%);
+    backdrop-filter: blur(5px) brightness(10%);
     user-select: none;
 }
 button:is(:hover, :focus-visible):not(:disabled) {
     color: var(--nav-color-hover);
     outline-width: 2px;
 }
+button:active:not(:disabled) {
+    color: var(--text-color-secondary);
+}
 button:disabled {
     opacity: var(--btn-opacity-low);
+    cursor: default;
 }
 
 main {
@@ -249,8 +262,9 @@ article {
 }
 
 article img {
-    outline: 1px solid var(--img-outline-color);
+    outline: 1px solid;
     outline-offset: 7px;
+    border: 1px solid;
     cursor: zoom-in;
 }
 .article-image {
@@ -265,14 +279,12 @@ article img {
 }
 .copyright {
     font-family: var(--ff-secondary);
-    color: var(--text-color-secondary);
-    border-top: 1px solid;
-    /* text-align: center; */
+    /* color: var(--text-color-secondary); */
+    /* border-top: 1px solid; */
 }
 .explanation {
     padding: var(--size-step-3);
     margin-inline: auto;
-    font-size: var(--size-step-1);
     /* padding-block: var(--size-step-3); */
     border-top: 1px solid;
 }
@@ -301,16 +313,17 @@ article img {
     height: 40%;
     background: linear-gradient(
         to left,
-        var(--date-btn-outline-clr-1),
-        var(--date-btn-outline-clr-2)
+        var(--date-btn-outline-clr),
+        transparent,
+        transparent
     );
     z-index: -2;
     filter: blur(3px);
-    /* animation: spin 8s ease-in-out infinite; */
+    animation: spin 8s linear infinite;
 }
 .button-date::after {
     content: "";
-    inset: 2px;
+    inset: 1px;
     position: absolute;
     background-color: var(--bg-color);
     border-radius: 5px;

@@ -33,7 +33,7 @@ function PhotoWrapper({
     }
     return (
         <>
-            <article className="flow" onClick={showImage}>
+            <article className="flow flow-flexible" onClick={showImage}>
                 {media_type == "image" && (
                     <PhotoImg smallImgSrc={url} largeImgSrc={hdurl} className="article-image" isSmallImg={true} />
                 )}
