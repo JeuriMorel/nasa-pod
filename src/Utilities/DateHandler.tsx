@@ -1,3 +1,7 @@
+import { add, isSameDay, sub } from "date-fns"
+
+const OFFSET_FROM_UTC = 8
+
 interface Date_Object {
     value: Date
     day: number
@@ -15,9 +19,9 @@ export class DateHandler {
     MIN: Date_Object
 
     constructor() {
-        this.today = adjustDate(new Date())
+        this.today = adjust_date_to_pst(new Date())
         this.current = this.today
-        this.apod_start_date = adjustDate(new Date("1995-06-16 PST"))
+        this.apod_start_date = new Date("1995-06-16 PST")
         this.min_in_ms = this.apod_start_date.getTime()
         this.max_in_ms = this.today.getTime()
         this.MAX = {
@@ -46,7 +50,6 @@ export function isCurrentMinOrMax(
     )
 }
 
-export function adjustDate(date_to_adjust: Date) {
-    date_to_adjust.setHours(0, 0, 0, 0)
-    return date_to_adjust
+export function adjust_date_to_pst(date_to_adjust: Date) {
+    return sub(date_to_adjust, { hours: OFFSET_FROM_UTC })
 }

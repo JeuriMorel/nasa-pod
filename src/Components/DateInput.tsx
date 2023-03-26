@@ -1,14 +1,19 @@
 import { DateHandler } from "../Utilities/DateHandler"
-import Formatter from "../Utilities/Formatter"
+import {format} from 'date-fns'
 
 type DateInputProps = {
-    dateHandler: DateHandler
     formRef: React.RefObject<HTMLFormElement>
     inputRef: React.RefObject<HTMLInputElement>
     onSubmit: () => void
 }
+const date_handler = new DateHandler()
+const input_values = {
+    default: format(date_handler.today, "yyyy-MM-dd"),
+    min: format(date_handler.MIN.value, "yyyy-MM-dd"),
+    max: format(date_handler.MAX.value, "yyyy-MM-dd")
+}
 
-function DateInput({ dateHandler, formRef, onSubmit, inputRef }: DateInputProps) {
+function DateInput({ formRef, onSubmit, inputRef }: DateInputProps) {
     return (
         <>
             <form
@@ -17,7 +22,7 @@ function DateInput({ dateHandler, formRef, onSubmit, inputRef }: DateInputProps)
                 ref={formRef}
                 onSubmit={onSubmit}
             >
-                <label htmlFor="photo-search">{`Pick a date between ${Formatter(dateHandler.MIN.value)} and ${Formatter(dateHandler.MAX.value)}:`}</label>
+                <label htmlFor="photo-search">{`Pick a date between ${format(date_handler.MIN.value, 'PPP')} and ${format(date_handler.MAX.value, 'PPP')}:`}</label>
 
                 <div className="input-wrapper">
                     <input
@@ -25,9 +30,9 @@ function DateInput({ dateHandler, formRef, onSubmit, inputRef }: DateInputProps)
                         type="date"
                         id="photo-search"
                         name="photo-search"
-                        defaultValue={Formatter(dateHandler.today, true)}
-                        min={Formatter(dateHandler.MIN.value, true)}
-                        max={Formatter(dateHandler.MAX.value, true)}
+                        defaultValue={input_values.default}
+                        min={input_values.min}
+                        max={input_values.max}
                     ></input>
                     <button type="submit">query photo</button>
                 </div>

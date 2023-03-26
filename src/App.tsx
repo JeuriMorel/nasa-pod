@@ -2,12 +2,17 @@ import PhotoWrapper from "./Components/PhotoWrapper"
 import Button from "./Components/Button"
 import NavBar from "./Components/NavBar"
 import Formatter from "./Utilities/Formatter"
-import { adjustDate, DateHandler, isCurrentMinOrMax } from "./Utilities/DateHandler"
+import {
+    adjust_date_to_pst,
+    DateHandler,
+    isCurrentMinOrMax,
+} from "./Utilities/DateHandler"
 import { useMemo, useRef, useState } from "react"
 import Modal from "./Components/Modal"
 import DateInput from "./Components/DateInput"
 import axios from "axios"
 import { useQuery } from "react-query"
+import { isSameDay } from "date-fns"
 
 function App() {
     const [date_handler, set_date_handler] = useState(new DateHandler())
@@ -26,7 +31,9 @@ function App() {
     function setRandomDate() {
         const start = date_handler.min_in_ms
         const end = date_handler.max_in_ms
-        setCurrentDate(adjustDate(new Date(start + Math.random() * (end - start))))
+        setCurrentDate(
+            adjust_date_to_pst(new Date(start + Math.random() * (end - start)))
+        )
     }
 
     async function fetchPicture() {
@@ -40,63 +47,62 @@ function App() {
             })
             return response
         } catch (error) {
-            console.error(error)
+            if (axios.isAxiosError(error)) {
+                if (error.response) {
+                    const { data, status, headers } = error.response
+                    console.log(`There was a ${status} Error: ${data}`)
+                    console.log(headers)
+                } else if (error.request) {
+                    console.log(error.message)
+                }
+            } else {
+                console.log(error)
+            }
         }
     }
 
     let current_date = Formatter(date_handler.current)
     const current_is_min = useMemo(
-        () => isCurrentMinOrMax(date_handler, date_handler.MIN),
+        () => isSameDay(date_handler.current, date_handler.MIN.value),
         [date_handler]
     )
     const current_is_max = useMemo(
-        () => isCurrentMinOrMax(date_handler, date_handler.MAX),
+        () => isSameDay(date_handler.current, date_handler.MAX.value),
         [date_handler]
     )
     const modalRef = useRef<HTMLDialogElement>(null)
-    
+
     const formRef = useRef<HTMLFormElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
-
 
     function toggleModal() {
         modalRef.current?.showModal()
     }
 
     function handleSubmit() {
-        const input_value_as_date = adjustDate(new Date(inputRef.current?.value as string))
+        const input_value_as_date = adjust_date_to_pst(
+            new Date(inputRef.current?.value as string)
+        )
 
         input_value_as_date.setDate(input_value_as_date.getDate() + 1)
 
         setCurrentDate(input_value_as_date)
-
     }
 
     function setCurrentDate(new_current: Date) {
-        if (
-            new_current instanceof Date &&
-            isFinite(new_current.getTime())
-        ) {
-
+        if (new_current instanceof Date && isFinite(new_current.getTime())) {
             set_date_handler({ ...date_handler, current: new_current })
         }
     }
 
     function updateDate(value: number) {
-        if (
-            value < 0 &&
-            isCurrentMinOrMax(date_handler, date_handler.MIN)
-        )
+        if ((value < 0 && isSameDay(date_handler.current, date_handler.MIN.value)) || (value > 0 && isSameDay(date_handler.current, date_handler.MAX.value)))
             return
-        if (
-            value > 0 &&
-            isCurrentMinOrMax(date_handler, date_handler.MAX)
-        )
-            return
+        
 
         date_handler.current.setDate(date_handler.current.getDate() + value)
 
-        set_date_handler({ ...date_handler})
+        set_date_handler({ ...date_handler })
     }
 
     return (
@@ -105,17 +111,17 @@ function App() {
                 {isSuccess && <PhotoWrapper {...data?.data} />}
                 <Modal modalRef={modalRef}>
                     <DateInput
-                        dateHandler={date_handler}
                         formRef={formRef}
                         onSubmit={handleSubmit}
                         inputRef={inputRef}
-                        
                     />
                 </Modal>
             </main>
             <NavBar>
                 <Button
-                    className={"m-inline-end-sm m-inline-start-auto shift-button shift-button-left"}
+                    className={
+                        "m-inline-end-sm m-inline-start-auto shift-button shift-button-left"
+                    }
                     button_text="&#60;"
                     onClick={() => updateDate(-1)}
                     disabled={current_is_min}
