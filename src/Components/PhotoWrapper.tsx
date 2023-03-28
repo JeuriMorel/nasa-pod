@@ -24,6 +24,8 @@ function PhotoWrapper({
 }: PhotoWrapperProps) {
     function showImage(event: MouseEvent) {
         event.stopPropagation()
+        if ((event.target as HTMLElement).tagName !== "IMG") return
+        
         const modal = (event.currentTarget as HTMLElement).querySelector(
             "dialog"
         )

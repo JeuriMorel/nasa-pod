@@ -284,10 +284,24 @@ article img {
     /* border-top: 1px solid; */
 }
 .explanation {
+    position: relative;
     padding: var(--size-step-3);
     margin-inline: auto;
     /* padding-block: var(--size-step-3); */
     border-top: 1px solid;
+}
+
+.explanation::before, .explanation::after{
+    content: "|";
+    position: absolute;
+    color: var(--select);
+}
+
+.explanation::before{
+    inset: 50% auto 50% -1em;
+}
+.explanation::after{
+    inset: 50% 1em 50% auto;
 }
 
 .m-inline-end-sm {
