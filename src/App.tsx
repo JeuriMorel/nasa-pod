@@ -24,8 +24,8 @@ function App() {
     })
 
     function setRandomDate() {
-        const start = date_handler.min_in_ms
-        const end = date_handler.max_in_ms
+        const start = date_handler.MIN.in_ms
+        const end = date_handler.MAX.in_ms
         setCurrentDate(
             adjust_date_to_pst(new Date(start + Math.random() * (end - start)))
         )
@@ -36,7 +36,6 @@ function App() {
             const response = await axios.get(nasa_keys.url, {
                 params: {
                     api_key: nasa_keys.key,
-                    thumbs: true,
                     date:  format(date_handler.current, "yyyy-MM-dd"),
                 },
             })

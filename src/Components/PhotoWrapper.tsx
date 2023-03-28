@@ -21,7 +21,6 @@ function PhotoWrapper({
     hdurl,
     media_type,
     url,
-    thumbnail_url,
 }: PhotoWrapperProps) {
     function showImage(event: MouseEvent) {
         event.stopPropagation()
