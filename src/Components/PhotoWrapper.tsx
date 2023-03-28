@@ -23,7 +23,6 @@ function PhotoWrapper({
     url,
     thumbnail_url,
 }: PhotoWrapperProps) {
-    if (media_type == "video") console.log("this is a video")
     function showImage(event: MouseEvent) {
         event.stopPropagation()
         const modal = (event.currentTarget as HTMLElement).querySelector(

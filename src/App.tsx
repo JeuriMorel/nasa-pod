@@ -1,14 +1,13 @@
 import PhotoWrapper from "./Components/PhotoWrapper"
 import Button from "./Components/Button"
 import NavBar from "./Components/NavBar"
-import Formatter from "./Utilities/Formatter"
 import { adjust_date_to_pst, DateHandler } from "./Utilities/DateHandler"
 import { useMemo, useRef, useState } from "react"
 import Modal from "./Components/Modal"
 import DateInput from "./Components/DateInput"
 import axios from "axios"
 import { useQuery } from "react-query"
-import { format, isSameDay, isValid } from "date-fns"
+import { format, isSameDay, isValid, addDays } from "date-fns"
 
 function App() {
     const [date_handler, set_date_handler] = useState(new DateHandler())
@@ -38,7 +37,7 @@ function App() {
                 params: {
                     api_key: nasa_keys.key,
                     thumbs: true,
-                    date: Formatter(date_handler.current, true),
+                    date:  format(date_handler.current, "yyyy-MM-dd"),
                 },
             })
             return response
@@ -67,7 +66,6 @@ function App() {
         [date_handler]
     )
     const modalRef = useRef<HTMLDialogElement>(null)
-
     const formRef = useRef<HTMLFormElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
 
@@ -77,8 +75,6 @@ function App() {
 
     function handleSubmit() {
         const input_value_as_date = new Date(inputRef.current?.value as string)
-
-        console.log(input_value_as_date)
 
         input_value_as_date.setDate(input_value_as_date.getDate() + 1)
 
@@ -92,16 +88,11 @@ function App() {
 
     function updateDate(value: number) {
         if (
-            (value < 0 &&
-                isSameDay(date_handler.current, date_handler.MIN.value)) ||
-            (value > 0 &&
-                isSameDay(date_handler.current, date_handler.MAX.value))
+            isBreachingOuterBounds(value, date_handler)
         )
             return
 
-        date_handler.current.setDate(date_handler.current.getDate() + value)
-
-        set_date_handler({ ...date_handler })
+        set_date_handler({ ...date_handler, current: addDays(date_handler.current, value) })
     }
 
     return (
@@ -147,3 +138,10 @@ function App() {
 }
 
 export default App
+function isBreachingOuterBounds(value: number, date_handler: DateHandler) {
+    return (value < 0 &&
+        isSameDay(date_handler.current, date_handler.MIN.value)) ||
+        (value > 0 &&
+            isSameDay(date_handler.current, date_handler.MAX.value))
+}
+

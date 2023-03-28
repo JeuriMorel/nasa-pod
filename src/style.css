@@ -337,6 +337,7 @@ article img {
     font-family: var(--ff-secondary);
     font-size: 1.25em;
     margin-inline: auto;
+    margin-block-start: 1em;
     padding: 0.125em 0.25em;
     opacity: var(--btn-opacity-low);
     transition: opacity 150ms ease-in;
