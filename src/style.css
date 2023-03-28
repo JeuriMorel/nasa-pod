@@ -114,7 +114,7 @@ body {
     color: var(--text-color);
     font-size: var(--size-step-1);
     max-width: 100%;
-    min-height: 100vh;
+    min-height: 110vh;
     text-rendering: optimizeSpeed;
     line-height: var(--line-height);
 }
@@ -320,11 +320,11 @@ article img {
     );
     z-index: -2;
     filter: blur(3px);
-    animation: spin 8s linear infinite;
+    /* animation: spin 8s linear infinite; */
 }
 .button-date::after {
     content: "";
-    inset: 1px;
+    inset: 2px;
     position: absolute;
     background-color: var(--bg-color);
     border-radius: 5px;

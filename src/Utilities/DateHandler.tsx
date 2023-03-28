@@ -4,9 +4,6 @@ const OFFSET_FROM_UTC = 8
 
 interface Date_Object {
     value: Date
-    day: number
-    month: number
-    year: number
 }
 
 export class DateHandler {
@@ -26,29 +23,23 @@ export class DateHandler {
         this.max_in_ms = this.today.getTime()
         this.MAX = {
             value: this.today,
-            day: this.today.getDay(),
-            month: this.today.getMonth(),
-            year: this.today.getFullYear(),
         }
         this.MIN = {
             value: this.apod_start_date,
-            day: this.apod_start_date.getDay(),
-            month: this.apod_start_date.getMonth(),
-            year: this.apod_start_date.getFullYear(),
         }
     }
 }
 
-export function isCurrentMinOrMax(
-    date_handler: DateHandler,
-    date_to_compare: Date_Object
-): boolean {
-    return (
-        date_handler.current.getDay() == date_to_compare.day &&
-        date_handler.current.getMonth() == date_to_compare.month &&
-        date_handler.current.getFullYear() == date_to_compare.year
-    )
-}
+// export function isCurrentMinOrMax(
+//     date_handler: DateHandler,
+//     date_to_compare: Date_Object
+// ): boolean {
+//     return (
+//         date_handler.current.getDay() == date_to_compare.day &&
+//         date_handler.current.getMonth() == date_to_compare.month &&
+//         date_handler.current.getFullYear() == date_to_compare.year
+//     )
+// }
 
 export function adjust_date_to_pst(date_to_adjust: Date) {
     return sub(date_to_adjust, { hours: OFFSET_FROM_UTC })

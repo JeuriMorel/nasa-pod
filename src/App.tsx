@@ -2,17 +2,13 @@ import PhotoWrapper from "./Components/PhotoWrapper"
 import Button from "./Components/Button"
 import NavBar from "./Components/NavBar"
 import Formatter from "./Utilities/Formatter"
-import {
-    adjust_date_to_pst,
-    DateHandler,
-    isCurrentMinOrMax,
-} from "./Utilities/DateHandler"
+import { adjust_date_to_pst, DateHandler } from "./Utilities/DateHandler"
 import { useMemo, useRef, useState } from "react"
 import Modal from "./Components/Modal"
 import DateInput from "./Components/DateInput"
 import axios from "axios"
 import { useQuery } from "react-query"
-import { isSameDay } from "date-fns"
+import { format, isSameDay, isValid } from "date-fns"
 
 function App() {
     const [date_handler, set_date_handler] = useState(new DateHandler())
@@ -61,7 +57,7 @@ function App() {
         }
     }
 
-    let current_date = Formatter(date_handler.current)
+    let current_date = format(date_handler.current, "PPP")
     const current_is_min = useMemo(
         () => isSameDay(date_handler.current, date_handler.MIN.value),
         [date_handler]
@@ -80,9 +76,9 @@ function App() {
     }
 
     function handleSubmit() {
-        const input_value_as_date = adjust_date_to_pst(
-            new Date(inputRef.current?.value as string)
-        )
+        const input_value_as_date = new Date(inputRef.current?.value as string)
+
+        console.log(input_value_as_date)
 
         input_value_as_date.setDate(input_value_as_date.getDate() + 1)
 
@@ -90,15 +86,18 @@ function App() {
     }
 
     function setCurrentDate(new_current: Date) {
-        if (new_current instanceof Date && isFinite(new_current.getTime())) {
+        if (isValid(new_current))
             set_date_handler({ ...date_handler, current: new_current })
-        }
     }
 
     function updateDate(value: number) {
-        if ((value < 0 && isSameDay(date_handler.current, date_handler.MIN.value)) || (value > 0 && isSameDay(date_handler.current, date_handler.MAX.value)))
+        if (
+            (value < 0 &&
+                isSameDay(date_handler.current, date_handler.MIN.value)) ||
+            (value > 0 &&
+                isSameDay(date_handler.current, date_handler.MAX.value))
+        )
             return
-        
 
         date_handler.current.setDate(date_handler.current.getDate() + value)
 

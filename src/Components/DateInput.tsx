@@ -7,10 +7,11 @@ type DateInputProps = {
     onSubmit: () => void
 }
 const date_handler = new DateHandler()
+const input_date_format = "yyyy-MM-dd"
 const input_values = {
-    default: format(date_handler.today, "yyyy-MM-dd"),
-    min: format(date_handler.MIN.value, "yyyy-MM-dd"),
-    max: format(date_handler.MAX.value, "yyyy-MM-dd")
+    default: format(date_handler.today, input_date_format),
+    min: format(date_handler.MIN.value, input_date_format),
+    max: format(date_handler.MAX.value, input_date_format)
 }
 
 function DateInput({ formRef, onSubmit, inputRef }: DateInputProps) {
