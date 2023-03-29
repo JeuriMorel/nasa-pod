@@ -92,14 +92,16 @@ select {
 
 html,
 #root,
-main {
+main,body {
     height: 100%;
 }
 
 html {
     color-scheme: dark light;
 }
-
+#root{
+    min-height: 100vh;
+}
 body {
     --bg-color: var(--clr-supernova-100);
     --img-outline-color: var(--clr-supernova-300);
@@ -114,7 +116,7 @@ body {
     color: var(--text-color);
     font-size: var(--size-step-1);
     max-width: 100%;
-    min-height: 110vh;
+    min-height: 101vh;
     text-rendering: optimizeSpeed;
     line-height: var(--line-height);
 }
@@ -360,6 +362,37 @@ article img {
     opacity: 1;
 }
 
+.error-404{
+    height: 100%;
+    width: 100%;
+    position: relative;
+    isolation: isolate;
+    /* font-family: var(--ff-secondary); */
+}
+.error-404 img{
+    position: absolute;
+    object-fit: cover;
+    z-index: -1;
+    min-width: 100%;
+    min-height: 100%;
+}
+.error-overlay{
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: brightness(50%) sepia(50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-message span{
+    display: block;
+    font-family: var(--ff-secondary);
+    font-size: calc(var(--size-step-4) * 4);
+}
+
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -368,25 +401,6 @@ article img {
         transform: rotate(360deg);
     }
 }
-
-/* @media screen and (min-width: 800px) {
-    .text-container {
-        display: grid;
-        column-gap: 2rem;
-        grid-template-areas:
-            " . . ."
-            "title . explanation"
-            ". . explanation"
-            "copyright . explanation"
-            ". . explanation"
-            ". . ."
-            ". . .";
-    }
-    .title,
-    .copyright {
-        text-align: left;
-    }
-} */
 
 @media screen and (max-width: 1130px) {
     .text-container {

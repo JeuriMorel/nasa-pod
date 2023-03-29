@@ -8,6 +8,8 @@ import DateInput from "./Components/DateInput"
 import axios from "axios"
 import { useQuery } from "react-query"
 import { format, isSameDay, isValid, addDays } from "date-fns"
+import Status_404 from "./Components/Status_404"
+import Loader from "./Components/Loader"
 
 function App() {
     const [date_handler, set_date_handler] = useState(new DateHandler())
@@ -21,6 +23,7 @@ function App() {
         queryKey: ["photos", date_handler.current],
         queryFn: fetchPicture,
         staleTime: Infinity,
+        retry: 0
     })
 
     function setRandomDate() {
@@ -36,16 +39,17 @@ function App() {
             const response = await axios.get(nasa_keys.url, {
                 params: {
                     api_key: nasa_keys.key,
-                    date:  format(date_handler.current, "yyyy-MM-dd"),
+                    date: format(date_handler.current, "yyyy-MM-dd"),
                 },
             })
             return response
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 if (error.response) {
-                    const { data, status, headers } = error.response
+                    const { data, status } = error.response
+
+                    if(status === 404) throw new Error(error.message)
                     console.log(`There was a ${status} Error: ${data}`)
-                    console.log(headers)
                 } else if (error.request) {
                     console.log(error.message)
                 }
@@ -86,18 +90,20 @@ function App() {
     }
 
     function updateDate(value: number) {
-        if (
-            isBreachingOuterBounds(value, date_handler)
-        )
-            return
+        if (isBreachingOuterBounds(value, date_handler)) return
 
-        set_date_handler({ ...date_handler, current: addDays(date_handler.current, value) })
+        set_date_handler({
+            ...date_handler,
+            current: addDays(date_handler.current, value),
+        })
     }
 
     return (
         <>
             <main>
                 {isSuccess && <PhotoWrapper {...data?.data} />}
+                {isError && <Status_404 />}
+                {isLoading && <Loader/>}
                 <Modal modalRef={modalRef}>
                     <DateInput
                         formRef={formRef}
@@ -138,9 +144,9 @@ function App() {
 
 export default App
 function isBreachingOuterBounds(value: number, date_handler: DateHandler) {
-    return (value < 0 &&
-        isSameDay(date_handler.current, date_handler.MIN.value)) ||
-        (value > 0 &&
-            isSameDay(date_handler.current, date_handler.MAX.value))
+    return (
+        (value < 0 &&
+            isSameDay(date_handler.current, date_handler.MIN.value)) ||
+        (value > 0 && isSameDay(date_handler.current, date_handler.MAX.value))
+    )
 }
-
