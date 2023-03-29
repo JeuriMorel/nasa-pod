@@ -46,7 +46,7 @@ function PhotoWrapper({
                         <p className="copyright">Copyright: {copyright}</p>
                     )}
                 </div>
-                <p className="explanation">{explanation}</p>
+                <p className="explanation">&gt; {explanation}</p>
 
                 {media_type == "image" && (
                     <Modal>
