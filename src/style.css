@@ -58,6 +58,7 @@
     --btn-opacity-low: 0.3;
     --max-media-width: 560px;
     --backdrop-blur: 1.5rem;
+   
 }
 
 *,
@@ -104,6 +105,10 @@ body {
     --nav-color-hover: var(--clr-nebula-900);
     --date-btn-outline-clr: var(--clr-nebula-700);
     --select: var(--clr-nebula-300);
+    --text-shadow: -1px 1px 0 var(--text-color-secondary),
+    1px 1px 0 var(--text-color-secondary),
+     1px -1px 0 var(--text-color-secondary),
+      -1px -1px 0 var(--text-color-secondary);
     font-family: var(--ff-primary);
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -152,6 +157,28 @@ header {
     width: 1px;
     overflow: hidden;
 }
+
+label{
+    font-size: var(--size-step-2);
+}
+
+label::before{
+    content: "\2727";
+    color: var(--nav-color);
+    
+}
+
+input:is(:hover, :focus-visible) + label::before{
+    color: var(--text-color);
+}
+
+input:checked + label::before{
+    content: "\2726";
+    color: var(--text-color);
+    text-shadow: var(--text-shadow);
+}
+
+
 
 nav {
     width: 100%;
@@ -284,6 +311,10 @@ article img {
     border-top: 1px solid;
 }
 
+.explanation::before{
+    content: "> ";
+}
+
 
 .explanation::after{
     content: '';
@@ -377,10 +408,7 @@ article img {
 }
 
 .error-message{
-    text-shadow: -1px 1px 0 var(--text-color-secondary),
-    1px 1px 0 var(--text-color-secondary),
-     1px -1px 0 var(--text-color-secondary),
-      -1px -1px 0 var(--text-color-secondary);
+    text-shadow: var(--text-shadow);
 }
 
 .error-message span{

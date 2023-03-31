@@ -1,6 +1,6 @@
 import PhotoImg from "./PhotoImg"
 import Modal from "./Modal"
-import { MouseEventHandler, MouseEvent } from "react"
+import { MouseEventHandler, MouseEvent, ChangeEvent } from "react"
 
 import PhotoVideo from "./PhotoVideo"
 
@@ -12,6 +12,12 @@ interface PhotoWrapperProps {
     hdurl: string
     media_type: string
     thumbnail_url: string
+}
+
+function toggleFavorited(event: ChangeEvent) {
+    
+    if ((event.target as HTMLInputElement).checked) console.log('added')
+    else console.log('removed')
 }
 
 function PhotoWrapper({
@@ -45,8 +51,11 @@ function PhotoWrapper({
                     {copyright && (
                         <p className="copyright">Copyright: {copyright}</p>
                     )}
+                    <input type="checkbox" name="favorites" id="favorites" className="sr-only" onChange={toggleFavorited}/>
+                    <label htmlFor="favorites" />
                 </div>
-                <p className="explanation">&gt; {explanation}</p>
+
+                <p className="explanation">{explanation}</p>
 
                 {media_type == "image" && (
                     <Modal>
