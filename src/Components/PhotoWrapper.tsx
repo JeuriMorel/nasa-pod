@@ -1,23 +1,12 @@
 import PhotoImg from "./PhotoImg"
 import Modal from "./Modal"
-import { MouseEventHandler, MouseEvent, ChangeEvent } from "react"
+import {  MouseEvent } from "react"
 
 import PhotoVideo from "./PhotoVideo"
 
-interface PhotoWrapperProps {
-    explanation: string
-    title: string
-    copyright: string | null
-    url: string
-    hdurl: string
-    media_type: string
-    thumbnail_url: string
-}
-
-function toggleFavorited(event: ChangeEvent) {
-    
-    if ((event.target as HTMLInputElement).checked) console.log('added')
-    else console.log('removed')
+interface PhotoWrapperProps extends PhotoInfo {
+    handleToggle: (checked: Boolean, photo_info_obj: PhotoInfo) => void,
+    checked: boolean | undefined
 }
 
 function PhotoWrapper({
@@ -27,6 +16,8 @@ function PhotoWrapper({
     hdurl,
     media_type,
     url,
+    thumbnail_url,
+    handleToggle, checked
 }: PhotoWrapperProps) {
     function showImage(event: MouseEvent) {
         event.stopPropagation()
@@ -36,6 +27,19 @@ function PhotoWrapper({
             "dialog"
         )
         modal?.showModal()
+    }
+    function toggleFavorited(event: { target: HTMLInputElement; }) {
+        let obj = {
+            explanation,
+            title,
+            copyright,
+            hdurl,
+            media_type,
+            url,
+            thumbnail_url
+        }
+    
+        handleToggle(event.target.checked, obj )
     }
     return (
         <>
@@ -51,8 +55,8 @@ function PhotoWrapper({
                     {copyright && (
                         <p className="copyright">Copyright: {copyright}</p>
                     )}
-                    <input type="checkbox" name="favorites" id="favorites" className="sr-only" onChange={toggleFavorited}/>
-                    <label htmlFor="favorites" />
+                    <input type="checkbox" name="favorites" id="favorites" className="sr-only" onChange={toggleFavorited} checked={checked} aria-label='add to favorites' />
+                    <label htmlFor="favorites" className="favorites-label"/>
                 </div>
 
                 <p className="explanation">{explanation}</p>

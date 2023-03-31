@@ -14,17 +14,41 @@ import Loader from "./Components/Loader"
 function App() {
     const [date_handler, set_date_handler] = useState(new DateHandler())
 
+    const [favorites_array, set_favorites_array] = useState<
+        FavoritePhotoInfo[]
+    >([])
+
     const nasa_keys = {
         url: import.meta.env.VITE_NASA_API_URL as string,
         key: import.meta.env.VITE_NASA_API_KEY as string,
     }
 
+    const formatted_current_date = format(date_handler.current, "yyyy-MM-dd")
+
     const { isLoading, isSuccess, isError, data, error, refetch } = useQuery({
         queryKey: ["photos", date_handler.current],
         queryFn: fetchPicture,
         staleTime: Infinity,
-        retry: 0
+        retry: 0,
     })
+
+    function handleFavoritesToggle(
+        checked: Boolean,
+        photo_info_obj: PhotoInfo
+    ) {
+        if (checked === true) {
+            set_favorites_array(array => [
+                ...array,
+                { ...photo_info_obj, date: formatted_current_date },
+            ])
+            // set_favorites_array([...favorites_array, {...photo_info_obj, date: current}])
+        } else
+            set_favorites_array(array =>
+                array.filter(({ date }) => date !== formatted_current_date)
+            )
+
+        console.log(favorites_array)
+    }
 
     function setRandomDate() {
         const start = date_handler.MIN.in_ms
@@ -48,7 +72,7 @@ function App() {
                 if (error.response) {
                     const { data, status } = error.response
 
-                    if(status === 404) throw new Error(error.message)
+                    if (status === 404) throw new Error(error.message)
                     console.log(`There was a ${status} Error: ${data}`)
                 } else if (error.request) {
                     console.log(error.message)
@@ -98,12 +122,22 @@ function App() {
         })
     }
 
+    function currentIsInFavorites(obj: FavoritePhotoInfo): boolean {
+        return obj.date === formatted_current_date
+    }
+
     return (
         <>
             <main>
-                {isSuccess && <PhotoWrapper {...data?.data} />}
+                {isSuccess && (
+                    <PhotoWrapper
+                        {...data?.data}
+                        handleToggle={handleFavoritesToggle}
+                        checked={favorites_array.some(currentIsInFavorites)}
+                    />
+                )}
                 {isError && <Status_404 />}
-                {isLoading && <Loader/>}
+                {isLoading && <Loader />}
                 <Modal modalRef={modalRef}>
                     <DateInput
                         formRef={formRef}

@@ -158,21 +158,28 @@ header {
     overflow: hidden;
 }
 
-label{
+.favorites-label{
     font-size: var(--size-step-2);
+    color: var(--nav-color);
 }
 
-label::before{
+.favorites-label::before{
     content: "\2727";
-    color: var(--nav-color);
+    
+}
+input:not(:checked) + .favorites-label::after{
+    content: "\271A";
+    position: absolute;
+    font-size: var(--size-step-0);
+    vertical-align: super;
     
 }
 
-input:is(:hover, :focus-visible) + label::before{
+input:is(:hover, :focus-visible) + .favorites-label::before{
     color: var(--text-color);
 }
 
-input:checked + label::before{
+input:checked + .favorites-label::before{
     content: "\2726";
     color: var(--text-color);
     text-shadow: var(--text-shadow);

@@ -19,6 +19,7 @@ function Modal({ children, modalRef }: ModalProps) {
                 button_text="&times;"
                 onClick={close_modal}
                 className="btn-close-modal"
+                label="Close"
                 ></Button>
                 
         </dialog>
