@@ -59,7 +59,7 @@ function PhotoWrapper({
                     <label htmlFor="favorites" className="favorites-label"/>
                 </div>
 
-                <p className="explanation">{explanation}</p>
+                <p className="explanation with-cursors">{explanation}</p>
 
                 {media_type == "image" && (
                     <Modal>
