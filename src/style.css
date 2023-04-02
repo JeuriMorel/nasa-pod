@@ -97,14 +97,14 @@ html {
     min-height: 100vh;
 }
 body {
-    --bg-color: var(--clr-nebula-100);
-    --img-outline-color: var(--clr-nebula-300);
-    --text-color: var(--clr-nebula-900);
-    --text-color-secondary: var(--clr-nebula-500);
-    --nav-color: var(--clr-nebula-700);
-    --nav-color-hover: var(--clr-nebula-900);
-    --date-btn-outline-clr: var(--clr-nebula-700);
-    --select: var(--clr-nebula-300);
+    --bg-color: var(--clr-luna-100);
+    --img-outline-color: var(--clr-luna-300);
+    --text-color: var(--clr-luna-900);
+    --text-color-secondary: var(--clr-luna-500);
+    --nav-color: var(--clr-luna-700);
+    --nav-color-hover: var(--clr-luna-900);
+    --date-btn-outline-clr: var(--clr-luna-700);
+    --select: var(--clr-luna-300);
     --text-shadow: -1px 1px 0 var(--text-color-secondary),
     1px 1px 0 var(--text-color-secondary),
      1px -1px 0 var(--text-color-secondary),
@@ -160,7 +160,7 @@ header {
 
 .favorites-label{
     font-size: var(--size-step-2);
-    color: var(--nav-color);
+    color: var(--text-color-secondary);
 }
 
 .favorites-label::before{
@@ -272,12 +272,6 @@ button:disabled {
     cursor: default;
 }
 
-/* main {
-    display: flex;
-    place-content: center;
-    min-height: 100%;
-} */
-
 article {
     position: relative;
     display: flex;
@@ -306,7 +300,6 @@ article img {
     text-transform: uppercase;
     font-size: var(--size-step-4);
     letter-spacing: 0.1em;
-    /* border-bottom: 1px solid; */
 }
 .copyright {
     font-family: var(--ff-secondary);

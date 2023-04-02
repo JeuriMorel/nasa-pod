@@ -1,6 +1,8 @@
 import { sub } from "date-fns"
 
 const OFFSET_FROM_UTC = 8
+export const YEAR_MONTH_DAY = "yyyy-MM-dd"
+export const LONG_LOCALIZED_DATE = "PPP"
 
 interface Date_Object {
     value: Date

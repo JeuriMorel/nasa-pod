@@ -1,4 +1,3 @@
-import Button from "./Button"
 import {MouseEvent} from 'react'
 
 type ModalProps = {
@@ -15,12 +14,12 @@ function Modal({ children, modalRef }: ModalProps) {
     return (
         <dialog ref={modalRef}>
             {children}
-            <Button
-                button_text="&times;"
+            <button
                 onClick={close_modal}
                 className="btn-close-modal"
-                label="Close"
-                ></Button>
+                aria-label="Close"
+                >&times;</button>
+            
                 
         </dialog>
     )

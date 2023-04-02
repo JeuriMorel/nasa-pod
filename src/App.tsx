@@ -1,7 +1,7 @@
 import PhotoWrapper from "./Components/PhotoWrapper"
 import Button from "./Components/Button"
 import NavBar from "./Components/NavBar"
-import { adjust_date_to_pst, DateHandler } from "./Utilities/DateHandler"
+import { adjust_date_to_pst, DateHandler, LONG_LOCALIZED_DATE, YEAR_MONTH_DAY } from "./Utilities/DateHandler"
 import { useMemo, useRef, useState } from "react"
 import Modal from "./Components/Modal"
 import DateInput from "./Components/DateInput"
@@ -12,6 +12,8 @@ import Status_404 from "./Components/Status_404"
 import Loader from "./Components/Loader"
 
 function App() {
+    // const YEAR_MONTH_DAY = "yyyy-MM-dd"
+    // const LONG_LOCALIZED_DATE = "PPP"
     const [date_handler, set_date_handler] = useState(new DateHandler())
 
     const [favorites_array, set_favorites_array] = useState<
@@ -23,7 +25,7 @@ function App() {
         key: import.meta.env.VITE_NASA_API_KEY as string,
     }
 
-    const formatted_current_date = format(date_handler.current, "yyyy-MM-dd")
+    const formatted_current_date = format(date_handler.current, YEAR_MONTH_DAY)
 
     const { isLoading, isSuccess, isError, data, error, refetch } = useQuery({
         queryKey: ["photos", date_handler.current],
@@ -63,7 +65,7 @@ function App() {
             const response = await axios.get(nasa_keys.url, {
                 params: {
                     api_key: nasa_keys.key,
-                    date: format(date_handler.current, "yyyy-MM-dd"),
+                    date: format(date_handler.current, YEAR_MONTH_DAY),
                 },
             })
             return response
@@ -83,7 +85,7 @@ function App() {
         }
     }
 
-    let current_date = format(date_handler.current, "PPP")
+    let current_date = format(date_handler.current, LONG_LOCALIZED_DATE)
     const current_is_min = useMemo(
         () => isSameDay(date_handler.current, date_handler.MIN.value),
         [date_handler]
