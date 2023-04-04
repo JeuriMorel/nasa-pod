@@ -98,14 +98,14 @@ html {
     min-height: 100vh;
 }
 body {
-    --bg-color: var(--clr-luna-100);
-    --img-outline-color: var(--clr-luna-300);
-    --text-color: var(--clr-luna-900);
-    --text-color-secondary: var(--clr-luna-500);
-    --nav-color: var(--clr-luna-700);
-    --nav-color-hover: var(--clr-luna-900);
-    --date-btn-outline-clr: var(--clr-luna-700);
-    --select: var(--clr-luna-300);
+    --bg-color: var(--clr-far-away-100);
+    --img-outline-color: var(--clr-far-away-300);
+    --text-color: var(--clr-far-away-900);
+    --text-color-secondary: var(--clr-far-away-500);
+    --nav-color: var(--clr-far-away-700);
+    --nav-color-hover: var(--clr-far-away-900);
+    --date-btn-outline-clr: var(--clr-far-away-700);
+    --select: var(--clr-far-away-300);
     --text-shadow: -1px 1px 0 var(--text-color-secondary),
         1px 1px 0 var(--text-color-secondary),
         1px -1px 0 var(--text-color-secondary),
@@ -162,6 +162,7 @@ header {
 .favorites-label {
     font-size: var(--size-step-2);
     color: var(--text-color-secondary);
+    cursor: pointer;
 }
 
 .favorites-label::before {
@@ -416,15 +417,21 @@ article img {
 /* SKELETON */
 
 .skeleton {
-    background-color: var(--text-color-secondary);
+    background-color: var(--text-color);
     opacity: 0.5;
-    border-radius: 0.1rem;
-    animation: blink 3s linear infinite;
+    border-radius: 0.1em;
+    animation: blink 3s linear infinite alternate;
 }
 
 .skeleton-img {
     width: 500px;
     height: 400px;
+}
+
+.skeleton-text-container{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
 }
 
 .skeleton-title {
@@ -436,6 +443,12 @@ article img {
 .skeleton-copyright {
     width: 50%;
     height: var(--size-step-0);
+    border-radius: 2em;
+}
+.skeleton-icon {
+    height: var(--size-step-2);
+    border-radius: 50%;
+    aspect-ratio: 1;
 }
 
 .skeleton-explanation-container {
@@ -443,10 +456,12 @@ article img {
     display: flex;
     flex-direction: column;
     background-color: transparent;
+
 }
 .skeleton-explanation {
     height: var(--size-step-1);
     width: 100%;
+    border-radius: 2em;
 }
 
 @keyframes spin {
@@ -466,9 +481,14 @@ article img {
     }
 }
 
+
+
 @media screen and (max-width: 1130px) {
     .text-container {
         text-align: center;
+    }
+    .skeleton-text-container {
+        align-items: center;
     }
 }
 @media (prefers-reduced-motion: reduce) {
