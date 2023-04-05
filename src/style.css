@@ -188,7 +188,9 @@ input:checked + .favorites-label::before {
 menu {
     width: 100%;
     list-style-type: none;
-    display: flex;
+    display: grid;
+    grid-template-areas: ". . . left date right . random";
+    justify-items: center;
     align-items: center;
     font-size: var(--size-step-0);
     padding: 1em;
@@ -196,6 +198,20 @@ menu {
     inset: auto 0 0 0;
     background-color: hsla(0, 0%, 100%, 0.2);
     backdrop-filter: blur(var(--backdrop-blur));
+    gap: 1em;
+}
+menu li:nth-child(1) {
+    grid-area: left;
+}
+menu li:nth-child(2) {
+    grid-area: date;
+}
+menu li:nth-child(3) {
+    grid-area: right;
+}
+menu li:last-child {
+    justify-self: end;
+    grid-area: random;
 }
 
 dialog {
@@ -330,7 +346,6 @@ article img {
 }
 
 .button-date {
-    outline: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -338,6 +353,7 @@ article img {
     overflow: hidden;
     border-radius: 4px;
     backdrop-filter: none;
+    outline-offset: 2px;
 }
 .button-date::before {
     content: "";
@@ -352,7 +368,7 @@ article img {
     );
     z-index: -2;
     filter: blur(3px);
-    /* animation: spin 8s linear infinite; */
+    animation: spin 8s linear infinite;
 }
 .button-date::after {
     content: "";
@@ -371,14 +387,12 @@ article img {
     font-size: var(--size-step-3);
 }
 
-.random-date-button:hover::before {
+.random-date-button:focus::before {
     animation: roll-dice 1s linear;
 }
 
 .btn-close-modal {
     display: block;
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
     font-family: var(--ff-secondary);
     font-size: 1.25em;
     margin-inline: auto;
@@ -474,8 +488,6 @@ article img {
     border-radius: 2em;
 }
 
-
-
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -487,11 +499,11 @@ article img {
 @keyframes roll-dice {
     50% {
         transform: rotate(180deg);
-        content: '\2685';
+        content: "\2685";
     }
     100% {
         transform: rotate(360deg);
-        content: '\2682';
+        content: "\2682";
     }
 }
 @keyframes blink {

@@ -156,14 +156,14 @@ function App() {
             <MenuBar>
                 <Button
                     className={
-                        "m-inline-end-sm m-inline-start-auto shift-button shift-button-left"
+                        "shift-button shift-button-left"
                     }
                     button_text="&#60;"
                     onClick={() => updateDate(-1)}
                     disabled={current_is_min}
                 />
                 <Button
-                    className={"m-inline-end-sm button-date"}
+                    className={"button-date"}
                     button_text={current_date}
                     onClick={toggleModal}
                 />
