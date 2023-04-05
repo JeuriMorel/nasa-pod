@@ -102,8 +102,8 @@ body {
     --img-outline-color: var(--clr-far-away-300);
     --text-color: var(--clr-far-away-900);
     --text-color-secondary: var(--clr-far-away-500);
-    --nav-color: var(--clr-far-away-700);
-    --nav-color-hover: var(--clr-far-away-900);
+    --menu-color: var(--clr-far-away-700);
+    --menu-color-hover: var(--clr-far-away-900);
     --date-btn-outline-clr: var(--clr-far-away-700);
     --select: var(--clr-far-away-300);
     --text-shadow: -1px 1px 0 var(--text-color-secondary),
@@ -185,8 +185,9 @@ input:checked + .favorites-label::before {
     text-shadow: var(--text-shadow);
 }
 
-nav {
+menu {
     width: 100%;
+    list-style-type: none;
     display: flex;
     align-items: center;
     font-size: var(--size-step-0);
@@ -196,16 +197,13 @@ nav {
     background-color: hsla(0, 0%, 100%, 0.2);
     backdrop-filter: blur(var(--backdrop-blur));
 }
-nav :nth-child(3) {
-    margin-inline-end: calc(clamp(2em, 5vw, 4em) * -2);
-}
 
 dialog {
     --flow-spacer: var(--flow-spacer-2x);
     padding: 2rem;
     box-sizing: content-box;
     background-color: transparent;
-    color: var(--nav-color);
+    color: var(--menu-color);
     margin: auto;
     user-select: none;
     font-size: var(--size-step-2);
@@ -259,7 +257,7 @@ button {
     user-select: none;
 }
 button:is(:hover, :focus-visible):not(:disabled) {
-    color: var(--nav-color-hover);
+    color: var(--menu-color-hover);
     outline-width: 2px;
 }
 button:active:not(:disabled) {
@@ -364,6 +362,19 @@ article img {
     border-radius: 5px;
     z-index: -1;
 }
+.random-date-button {
+    padding: 0 1em;
+}
+.random-date-button::before {
+    content: "\02684";
+    display: inline-block;
+    font-size: var(--size-step-3);
+}
+
+.random-date-button:hover::before {
+    animation: roll-dice 1s linear;
+}
+
 .btn-close-modal {
     display: block;
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
@@ -428,7 +439,7 @@ article img {
     height: 400px;
 }
 
-.skeleton-text-container{
+.skeleton-text-container {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -456,7 +467,6 @@ article img {
     display: flex;
     flex-direction: column;
     background-color: transparent;
-
 }
 .skeleton-explanation {
     height: var(--size-step-1);
@@ -464,12 +474,24 @@ article img {
     border-radius: 2em;
 }
 
+
+
 @keyframes spin {
     0% {
         transform: rotate(0deg);
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+@keyframes roll-dice {
+    50% {
+        transform: rotate(180deg);
+        content: '\2685';
+    }
+    100% {
+        transform: rotate(360deg);
+        content: '\2682';
     }
 }
 @keyframes blink {
@@ -480,8 +502,6 @@ article img {
         opacity: 0;
     }
 }
-
-
 
 @media screen and (max-width: 1130px) {
     .text-container {

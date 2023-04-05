@@ -13,7 +13,7 @@ function Button({ button_text, className, onClick, disabled= false, label }: But
         
         <>
             <button
-                className={`nav-button ${className}`}
+                className={className}
                 onClick={onClick}
                 disabled={disabled}
                 aria-label={label}

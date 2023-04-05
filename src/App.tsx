@@ -1,7 +1,12 @@
 import PhotoWrapper from "./Components/PhotoWrapper"
 import Button from "./Components/Button"
-import NavBar from "./Components/NavBar"
-import { adjust_date_to_pst, DateHandler, LONG_LOCALIZED_DATE, YEAR_MONTH_DAY } from "./Utilities/DateHandler"
+import MenuBar from "./Components/MenuBar"
+import {
+    adjust_date_to_pst,
+    DateHandler,
+    LONG_LOCALIZED_DATE,
+    YEAR_MONTH_DAY,
+} from "./Utilities/DateHandler"
 import { useMemo, useRef, useState } from "react"
 import Modal from "./Components/Modal"
 import DateInput from "./Components/DateInput"
@@ -148,7 +153,7 @@ function App() {
                     />
                 </Modal>
             </main>
-            <NavBar>
+            <MenuBar>
                 <Button
                     className={
                         "m-inline-end-sm m-inline-start-auto shift-button shift-button-left"
@@ -169,11 +174,11 @@ function App() {
                     disabled={current_is_max}
                 />
                 <Button
-                    className={"m-inline-start-auto m-inline-end-sm"}
-                    button_text="random"
+                    className={"m-inline-start-auto m-inline-end-sm random-date-button"}
+                    button_text=""
                     onClick={setRandomDate}
                 />
-            </NavBar>
+            </MenuBar>
         </>
     )
 }
